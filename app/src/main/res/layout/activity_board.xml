@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BoardActivity">
+
+    <TextView
+        android:id="@+id/boardTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="게시판"
+        android:gravity="center"
+        android:textSize="10pt"
+        android:layout_margin="10dp"/>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/boardNavi"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/board_menu"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내용"
+            android:textSize="8pt"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"/>
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/searchBtn"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/bg_blue"
+            android:text="검색"/>
+    </LinearLayout>
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="390dp">
+        </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/contentText"
+            android:layout_width="340dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"/>
+        <Button
+            android:id="@+id/contentBtn"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/bg_blue"
+            android:text="등록"/>
+    </LinearLayout>
+
+    // 하단 메뉴바
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottonNavi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="13dp"
+            android:background="@drawable/radius_bottom_navi"
+            app:labelVisibilityMode="labeled"
+            app:itemIconTint="#000000"
+            app:itemTextColor="#000000"
+            app:menu="@menu/botton_menu"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="383dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/free"
+        android:enabled="true"
+        android:title="자유"/>
+
+    <item
+        android:id="@+id/diet"
+        android:enabled="true"
+        android:title="다이어트"/>
+
+    <item
+        android:id="@+id/lean"
+        android:enabled="true"
+        android:title="린매스업"/>
+
+    <item
+        android:id="@+id/bulk"
+        android:enabled="true"
+        android:title="벌크업"/>
+
+
+</menu>

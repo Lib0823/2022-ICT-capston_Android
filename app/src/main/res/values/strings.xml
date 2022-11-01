@@ -1,0 +1,8 @@
+<resources>
+    <string name="idText">아이디</string>
+    <string name="pwText">비밀번호</string>
+    <string name="idDes">아이디</string>
+    <string name="pwDes">비밀번호</string>
+    <string name="btnLogin">로그인</string>
+    <string name="btnJoin">회원가입</string>
+</resources>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FitnessActivity"
+    android:orientation="vertical">
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        ads:adSize="FULL_BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
+    // TestID : ca-app-pub-3940256099942544/6300978111
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_blue"
+        android:orientation="vertical">
+
+    // BMI메시지
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="10dp"
+        android:padding="7dp"
+        android:background="@drawable/radius_bottom_navi"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/BMI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="9pt"
+        android:gravity="center"
+        android:text="BMI" />
+    <TextView
+        android:id="@+id/BMI2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="7pt"/>
+    </LinearLayout>
+
+
+    // 중간 버튼
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/radius_back4_gray">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="다이어트"/>
+    <ImageButton
+        android:id="@+id/dietBtn"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:elevation="3dp"
+        android:background="@drawable/radius_bottom_navi"
+        android:src="@drawable/diet"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="린매스업"/>
+    <ImageButton
+        android:id="@+id/leanmassUpBtn"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:elevation="3dp"
+        android:background="@drawable/radius_bottom_navi"
+        android:src="@drawable/fit"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="벌크업"/>
+    <ImageButton
+        android:id="@+id/bulkUpBtn"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:elevation="3dp"
+        android:background="@drawable/radius_bottom_navi"
+        android:src="@drawable/fat"/>
+
+    </LinearLayout>
+
+    // 하단 네비게이션
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottonNavi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="13dp"
+            android:background="@drawable/radius_bottom_navi"
+            app:labelVisibilityMode="labeled"
+            app:itemIconTint="#000000"
+            app:itemTextColor="#000000"
+            app:menu="@menu/botton_menu"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="383dp" />
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
