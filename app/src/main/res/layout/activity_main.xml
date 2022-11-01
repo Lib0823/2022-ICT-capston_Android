@@ -54,8 +54,6 @@
             android:layout_marginRight="20dp"
             />
 
-
-        // 러닝
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,16 +79,17 @@
 
         <ProgressBar
             android:layout_gravity="center"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:max="30"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:progressTint="#66FFFF"
             android:progressBackgroundTint="#E0E0E0"
             android:id="@+id/progress" />
 
-        // 하단 copyright
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

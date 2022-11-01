@@ -7,12 +7,10 @@ import static java.lang.StrictMath.atan2;
 import static java.lang.StrictMath.sin;
 import static java.lang.StrictMath.sqrt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,15 +27,34 @@ import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RunActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
 
+    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
+    private FirebaseDatabase mFirebaseDB;
+    private DatabaseReference mDatabaseRef = mFirebaseDB.getInstance().getReference();
+    private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
+    private UserAccount[] userInfo = {new UserAccount()};   // 출력전용 객체
+    private UserAccount account = new UserAccount();        // 입력전용 객체
+    private String date;
+    private static int run; ///시발
     private Chronometer chrono;
     private boolean running;
     private long pauseOffset;
@@ -76,14 +93,50 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
     @Override
     public void onBackPressed() { // back키 이벤트
 
-        sql = "SELECT * FROM "+ helper.tableName + " WHERE login = '1'";
+        /*sql = "SELECT * FROM "+ helper.tableName + " WHERE login = '1'";
         cursor = database.rawQuery(sql, null);
         cursor.moveToNext();   // 첫번째에서 다음 레코드가 없을때까지 읽음
         int run = Integer.parseInt(cursor.getString(7));
         run += m;
         database.execSQL("UPDATE Users SET " +
                 "run="+run+
-                " WHERE login ='1'");
+                " WHERE login ='1'");*/
+
+        //데이터 읽기
+        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                run = 0;
+            }
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userInfo[0] = snapshot.getValue(UserAccount.class);
+                if(userInfo[0] == null ||  userInfo[0].equals(null))
+                    run = 0;
+                else {
+                    run = userInfo[0].getRun();
+                    Log.d("ㅇㅇㅇㅇㅇrun", String.valueOf(run));
+                }
+            }
+        });
+        Log.d("ㄱㄱㄱoo런", String.valueOf(run));
+        Log.d("ㄱㄱㄱㅇm", String.valueOf(m));
+        int sum = run + m;
+        Log.d("ㄱㄱㄱㅇㅇsum", String.valueOf(sum));
+        Map<String, Object> taskMap1 = new HashMap<String, Object>();
+        taskMap1.put("run", sum);
+        mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap1);
+
+        // 현재 날짜 가져오기
+        long now = System.currentTimeMillis();
+        Date date1 = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+        date = sdf.format(date1);
+
+        Map<String, Object> taskMap2 = new HashMap<String, Object>();
+        taskMap2.put("date", date);
+        mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap2);
 
         chrono.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
@@ -100,8 +153,8 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
         setContentView(R.layout.activity_run);
 
         //DataBase연결부분
-        helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableName, null, version);
-        database = helper.getWritableDatabase();
+        //helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableName, null, version);
+        //database = helper.getWritableDatabase();
 
 
         // T Map View

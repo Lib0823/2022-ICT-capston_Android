@@ -32,8 +32,8 @@ public class BoardActivity extends AppCompatActivity {
     private String id, contentId, content, field = "free", search;
 
     int version = 1;
-    DatabaseOpenHelper helperBoard, helperUser;
-    SQLiteDatabase databaseBoard, databaseUser;
+    //DatabaseOpenHelper helperBoard, helperUser;
+    //SQLiteDatabase databaseBoard, databaseUser;
 
     String sql;
     Cursor cursor;
@@ -43,7 +43,7 @@ public class BoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
-        //DB
+        /*//DB
         helperBoard = new DatabaseOpenHelper(BoardActivity.this, DatabaseOpenHelper.tableNameBoard, null, version);
         helperUser = new DatabaseOpenHelper(BoardActivity.this, DatabaseOpenHelper.tableName, null, version);
         databaseBoard = helperBoard.getWritableDatabase();
@@ -223,7 +223,7 @@ public class BoardActivity extends AppCompatActivity {
                 }
                 return true;
             }
-        });
+        });*/
 
     }
 }
