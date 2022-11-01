@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
-
+    
     public static final String tableName = "Users";
     public static final String tableNameBoard = "Board";
 
@@ -49,7 +49,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertUser(SQLiteDatabase db, String id, String pw, String name, int age, int height, int weight, String gender, int run, String login){
+    /*public void insertUser(SQLiteDatabase db, String id, String pw, String name, int age, int height, int weight, String gender, int run, String login){
         Log.i("tag","회원가입을 했을때 실행함");
         db.beginTransaction();
         try {
@@ -62,6 +62,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         }finally {
             db.endTransaction();
         }
-    }
+    }*/
 
 }

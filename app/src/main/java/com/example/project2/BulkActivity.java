@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class BulkActivity extends AppCompatActivity {
 
     int version = 1;
-    DatabaseOpenHelper helper;
+    //DatabaseOpenHelper helper;
     SQLiteDatabase database;
 
     String sql;
@@ -28,7 +28,7 @@ public class BulkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bulk);
 
         //DataBase연결부분
-        helper = new DatabaseOpenHelper(BulkActivity.this, DatabaseOpenHelper.tableName, null, version);
+        /*helper = new DatabaseOpenHelper(BulkActivity.this, DatabaseOpenHelper.tableName, null, version);
         database = helper.getWritableDatabase();
 
         sql = "SELECT * FROM "+ helper.tableName + " WHERE login = '1'";
@@ -64,6 +64,6 @@ public class BulkActivity extends AppCompatActivity {
         basicBar = findViewById(R.id.basicBar);
         basicBar.setProgress(Integer.parseInt(BMR2));
         recomBar = findViewById(R.id.recomBar);
-        recomBar.setProgress(Integer.parseInt(bulkup2));
+        recomBar.setProgress(Integer.parseInt(bulkup2));*/
     }
 }

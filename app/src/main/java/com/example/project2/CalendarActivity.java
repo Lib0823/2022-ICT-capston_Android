@@ -15,6 +15,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -27,6 +35,11 @@ public class CalendarActivity extends AppCompatActivity
     public TextView diaryTextView, textView2, textView3;
     public EditText contextEditText;
 
+    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
+    private FirebaseDatabase mFirebaseDB;
+    private DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
+    private String id;
     int version = 1;
     DatabaseOpenHelper helper;
     SQLiteDatabase database;
@@ -46,6 +59,7 @@ public class CalendarActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        read();
         calendarView = findViewById(R.id.calendarView);
         diaryTextView = findViewById(R.id.diaryTextView);
         save_Btn = findViewById(R.id.save_Btn);
@@ -55,13 +69,13 @@ public class CalendarActivity extends AppCompatActivity
         textView3 = findViewById(R.id.textView3);
         contextEditText = findViewById(R.id.contextEditText);
 
-        //DataBase연결부분
+        /*//DataBase연결부분
         helper = new DatabaseOpenHelper(CalendarActivity.this, DatabaseOpenHelper.tableName, null, version);
         database = helper.getWritableDatabase();
         sql = "SELECT id FROM "+ helper.tableName + " WHERE login = '1'";
         cursor = database.rawQuery(sql, null);
         cursor.moveToNext();   // 첫번째에서 다음 레코드가 없을때까지 읽음
-        String id = cursor.getString(0);
+        String id = cursor.getString(0);*/
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -196,5 +210,31 @@ public class CalendarActivity extends AppCompatActivity
         {
             e.printStackTrace();
         }
+    }
+
+    // 이름 변경을 위한 메소드
+    private void read() {
+
+        final UserAccount[] userInfo = {new UserAccount()};
+        //데이터 읽기
+        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userInfo[0] = snapshot.getValue(UserAccount.class);
+                if(userInfo[0] == null || userInfo[0].getId() == null || userInfo[0].getId().length() == 0 || userInfo[0].equals(null))
+                    id = "아이디 에러";
+                else
+                    id = userInfo[0].getId();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                id = "아이디 에러";
+            }
+        });
+        /*if(userInfo[0].getName() == null || userInfo[0].getName().length() == 0)
+            welcome.setText("회원정보를 불러오지 못했습니다.");
+        else if (userInfo[0].getDogName().equals(""))
+            tvDogName.setText(userInfo[0].getDogName());*/
     }
 }
