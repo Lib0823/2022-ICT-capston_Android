@@ -26,7 +26,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.shape.CornerFamily;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {  //hi ~~~ main
 
     public ImageButton moveCal, run;
 
