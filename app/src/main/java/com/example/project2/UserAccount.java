@@ -12,9 +12,9 @@ public class UserAccount {
     private String gender;
     private int run;
     private String date;
+    private int pedometer;  // 만보기 data
 
-    private int pedometer;
-
+    // 생성자 삭제하면 안됌!
     public UserAccount() {
     }
 
