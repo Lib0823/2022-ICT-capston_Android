@@ -11,36 +11,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:layout_marginBottom="50dp"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="123dp"
             android:layout_height="wrap_content"
             android:text="Mobile"
+            android:layout_gravity="right"
+            android:gravity="right"
             android:layout_marginBottom="35dp"
             android:textColor="#2659bb"
             android:textSize="17pt"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:src="@drawable/logo"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="123dp"
             android:layout_height="wrap_content"
             android:text="Trainer"
+            android:layout_gravity="left"
+            android:gravity="left"
             android:layout_marginBottom="35dp"
             android:textColor="#2659bb"
             android:textSize="17pt"/>
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
@@ -49,23 +56,26 @@
         <EditText
             android:id="@+id/idEditText"
             android:text=""
-            android:textSize="23sp"
-            android:layout_width="270dp"
-            android:layout_height="50dp"
-            android:inputType="textPersonName"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:inputType="textEmailAddress"
             android:layout_gravity="center"
-            android:hint="ID"
+            android:hint="E-mail"
             android:contentDescription="@string/idDes"
-            android:layout_alignParentEnd="true"
-            />
+            android:background="@drawable/border"
+            android:layout_alignParentEnd="true" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
@@ -74,39 +84,60 @@
         <EditText
             android:id="@+id/pwEditText"
             android:text=""
-            android:textSize="23sp"
-            android:layout_width="270dp"
-            android:layout_height="50dp"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
             android:inputType="textPassword"
             android:layout_gravity="center"
-            android:hint="PW"
+            android:hint="Password"
             android:contentDescription="@string/pwDes"
+            android:background="@drawable/border"
             android:layout_alignParentEnd="true"
+
             tools:ignore="LabelFor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <TextView
+            android:id="@+id/btnFindPw"
+            android:text="@string/btnFindPw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/btnJoin"
+            android:text="@string/btnJoin"
+            android:backgroundTint="@color/bg_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="right"/>
+
     </LinearLayout>
 
     <Button
         android:id="@+id/btnLogin"
         android:text="@string/btnLogin"
         android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/bg_blue"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnJoin"
-        android:text="@string/btnJoin"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/bg_blue"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnFindPw"
-        android:text="@string/btnFindPw"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/bg_blue"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/border"/>
 
 </LinearLayout>

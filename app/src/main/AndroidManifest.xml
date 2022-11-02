@@ -54,6 +54,9 @@
         <activity
             android:name=".CalendarActivity"
             android:exported="false" />
+        <activity
+            android:name=".FindPWActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

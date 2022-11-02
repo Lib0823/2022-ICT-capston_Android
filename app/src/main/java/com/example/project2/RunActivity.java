@@ -102,24 +102,6 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
                 "run="+run+
                 " WHERE login ='1'");*/
 
-        //데이터 읽기
-        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                run = 0;
-            }
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userInfo[0] = snapshot.getValue(UserAccount.class);
-                if(userInfo[0] == null ||  userInfo[0].equals(null))
-                    run = 0;
-                else {
-                    run = userInfo[0].getRun();
-                    Log.d("ㅇㅇㅇㅇㅇrun", String.valueOf(run));
-                }
-            }
-        });
         Log.d("ㄱㄱㄱoo런", String.valueOf(run));
         Log.d("ㄱㄱㄱㅇm", String.valueOf(m));
         int sum = run + m;
@@ -151,6 +133,25 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
+
+        //데이터 읽기
+        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                run = 0;
+            }
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userInfo[0] = snapshot.getValue(UserAccount.class);
+                if(userInfo[0] == null ||  userInfo[0].equals(null))
+                    run = 0;
+                else {
+                    run = userInfo[0].getRun();
+                    Log.d("ㅇㅇㅇㅇㅇrun", String.valueOf(run));
+                }
+            }
+        });
 
         //DataBase연결부분
         //helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableName, null, version);
