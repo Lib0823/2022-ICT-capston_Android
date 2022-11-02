@@ -8,13 +8,20 @@ import static java.lang.StrictMath.sin;
 import static java.lang.StrictMath.sqrt;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.pm.PackageManager;
+
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +33,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,7 +53,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RunActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
+public class RunActivity extends AppCompatActivity implements SensorEventListener, TMapGpsManager.onLocationChangedCallback {
 
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
     private FirebaseDatabase mFirebaseDB;
@@ -58,23 +66,25 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
     private Chronometer chrono;
     private boolean running;
     private long pauseOffset;
-    TextView cal;
+    private TextView distance, kcal;
+    private double countKcal=0.0;
 
-    int m; // 크로노미터 분
 
-    int version = 1;
-    DatabaseOpenHelper helper;
-    SQLiteDatabase database;
+    //걸음수
+    SensorManager sensorManager;
+    Sensor stepCountSensor;
+    TextView stepCount;
+    Button resetButton;
+    int currentSteps = 0;
 
-    String sql;
-    Cursor cursor;
+    int m; // 시간(분)
 
     double[] lon = new double[1000];
     double[] lat = new double[1000];
     int count= 0;
     double total = 0; // 총 거리
 
-    Button startBtn, stopBtn, resetBtn, run2;
+    Button startBtn, stopBtn;
 
     String API_Key = "l7xx307e334d60fa48ea83d967f7e14d88bb";
 
@@ -93,19 +103,7 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
     @Override
     public void onBackPressed() { // back키 이벤트
 
-        /*sql = "SELECT * FROM "+ helper.tableName + " WHERE login = '1'";
-        cursor = database.rawQuery(sql, null);
-        cursor.moveToNext();   // 첫번째에서 다음 레코드가 없을때까지 읽음
-        int run = Integer.parseInt(cursor.getString(7));
-        run += m;
-        database.execSQL("UPDATE Users SET " +
-                "run="+run+
-                " WHERE login ='1'");*/
-
-        Log.d("ㄱㄱㄱoo런", String.valueOf(run));
-        Log.d("ㄱㄱㄱㅇm", String.valueOf(m));
         int sum = run + m;
-        Log.d("ㄱㄱㄱㅇㅇsum", String.valueOf(sum));
         Map<String, Object> taskMap1 = new HashMap<String, Object>();
         taskMap1.put("run", sum);
         mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap1);
@@ -124,15 +122,20 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
         pauseOffset = 0;
         chrono.stop();
         running = false;
+        currentSteps = 0;
+        stepCount.setText(String.valueOf(currentSteps));
+
         Intent intent = new Intent(RunActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
+        kcal = findViewById(R.id.kcal);
 
         //데이터 읽기
         mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -148,14 +151,31 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
                     run = 0;
                 else {
                     run = userInfo[0].getRun();
-                    Log.d("ㅇㅇㅇㅇㅇrun", String.valueOf(run));
                 }
             }
         });
 
-        //DataBase연결부분
-        //helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableName, null, version);
-        //database = helper.getWritableDatabase();
+        //걸음수
+        stepCount = findViewById(R.id.stepCount);
+        // 활동 퍼미션 체크
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
+
+            requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 0);
+        }
+
+        // 걸음 센서 연결
+        // * 옵션
+        // - TYPE_STEP_DETECTOR:  리턴 값이 무조건 1, 앱이 종료되면 다시 0부터 시작
+        // - TYPE_STEP_COUNTER : 앱 종료와 관계없이 계속 기존의 값을 가지고 있다가 1씩 증가한 값을 리턴
+        //
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+
+        // 디바이스에 걸음 센서의 존재 여부 체크
+        if (stepCountSensor == null) {
+            Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
+        }
 
 
         // T Map View
@@ -240,6 +260,44 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
 
     }
 
+    //걸음수
+    public void onStart() {
+        super.onStart();
+        if(stepCountSensor !=null) {
+            // 센서 속도 설정
+            // * 옵션
+            // - SENSOR_DELAY_NORMAL: 20,000 초 딜레이
+            // - SENSOR_DELAY_UI: 6,000 초 딜레이
+            // - SENSOR_DELAY_GAME: 20,000 초 딜레이
+            // - SENSOR_DELAY_FASTEST: 딜레이 없음
+            //
+            sensorManager.registerListener((SensorEventListener) this,stepCountSensor,SensorManager.SENSOR_DELAY_FASTEST);
+        }
+    }
+
+
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // 걸음 센서 이벤트 발생시
+        if(event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR){
+
+            if(event.values[0]==1.0f){
+                // 센서 이벤트가 발생할때 마다 걸음수 증가
+                currentSteps++;
+                stepCount.setText(String.valueOf(currentSteps));
+                countKcal = currentSteps * 0.04;
+                kcal.setText((String.format("%.2f", countKcal)+"kcal"));
+            }
+
+        }
+
+    }
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
 
 
     // 지속적으로 위치를 받아와 설정해줌
@@ -259,7 +317,6 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
         }
         tMapView.addTMapPolyLine("Line", tMapPolyLine); // point값을 polyLine로 그림
 
-
         // 거리계산 식
         if(count == 0){
             lon[0] = Longitude;
@@ -277,8 +334,8 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
             double d = 6367 * c;
 
             total += d;
-            cal = findViewById(R.id.cal);
-            cal.setText((String.format("%.2f", total)));    // km단위로 거리 출력
+            distance = findViewById(R.id.distance);
+            distance.setText((String.format("%.2f", total)+"km"));    // km단위로 거리 출력
         }
         count++;
 
