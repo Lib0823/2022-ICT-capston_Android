@@ -54,7 +54,7 @@ public class RunActivity extends AppCompatActivity implements TMapGpsManager.onL
     private UserAccount[] userInfo = {new UserAccount()};   // 출력전용 객체
     private UserAccount account = new UserAccount();        // 입력전용 객체
     private String date;
-    private static int run; ///시발
+    private static int run;
     private Chronometer chrono;
     private boolean running;
     private long pauseOffset;

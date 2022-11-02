@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -93,17 +95,19 @@ public class InfoActivity extends AppCompatActivity {
                     case R.id.action_home:
                         Intent intent2 = new Intent(InfoActivity.this, MainActivity.class);
                         startActivity(intent2);
+                        finish();
                         break;
                     case R.id.action_fitness:
                         Intent intent = new Intent(InfoActivity.this, FitnessActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case R.id.action_board:
                         Intent intent3 = new Intent(InfoActivity.this, BoardActivity.class);
                         startActivity(intent3);
+                        finish();
                         break;
                     case R.id.action_info:
-
                         break;
                 }
                 return true;
@@ -115,16 +119,31 @@ public class InfoActivity extends AppCompatActivity {
         infoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                int age = Integer.parseInt(ageEdit.getText().toString()); //정수값 가져오기
-                int height = Integer.parseInt(heightEdit.getText().toString());
-                int weight = Integer.parseInt(weightEdit.getText().toString());
-                database.execSQL("UPDATE Users SET " +
+                Integer age = Integer.parseInt(ageEdit.getText().toString()); //정수값 가져오기
+                Integer height = Integer.parseInt(heightEdit.getText().toString());
+                Integer weight = Integer.parseInt(weightEdit.getText().toString());
+                /*database.execSQL("UPDATE Users SET " +
                         "age="+age+", height="+height+", weight="+weight+
-                        " WHERE login ='1'");
+                        " WHERE login ='1'");*/
 
-                Toast toast = Toast.makeText(InfoActivity.this, "수정되었습니다", Toast.LENGTH_SHORT);
-                toast.show();*/
+                if(age==null || height==null || weight==null ) {
+                    Toast toast = Toast.makeText(InfoActivity.this, "정보를 다시 확인해주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    Map<String, Object> taskMap1 = new HashMap<String, Object>();
+                    taskMap1.put("age", age);
+                    mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap1);
+                    Map<String, Object> taskMap2 = new HashMap<String, Object>();
+                    taskMap2.put("height", height);
+                    mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap2);
+                    Map<String, Object> taskMap3 = new HashMap<String, Object>();
+                    taskMap3.put("weight", weight);
+                    mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap3);
+
+                    Toast toast = Toast.makeText(InfoActivity.this, "정보가 수정되었습니다.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
             }
         });
 
@@ -133,8 +152,9 @@ public class InfoActivity extends AppCompatActivity {
         textDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                database.execSQL("DELETE FROM Users"+
-                        " WHERE login ='1'");
+                /*database.execSQL("DELETE FROM Users"+
+                        " WHERE login ='1'");*/
+                mFirebaseAuth.getCurrentUser().delete();
                 Toast toast = Toast.makeText(InfoActivity.this, "회원정보가 삭제되었습니다", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent intent = new Intent(InfoActivity.this, LoginActivity.class);

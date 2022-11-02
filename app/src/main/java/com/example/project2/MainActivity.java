@@ -80,14 +80,17 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_fitness:
                         Intent intent = new Intent(MainActivity.this, FitnessActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case R.id.action_board:
                         Intent intent2 = new Intent(MainActivity.this, BoardActivity.class);
                         startActivity(intent2);
+                        finish();
                         break;
                     case R.id.action_info:
                         Intent intent3 = new Intent(MainActivity.this, InfoActivity.class);
                         startActivity(intent3);
+                        finish();
                         break;
                 }
                 return true;
