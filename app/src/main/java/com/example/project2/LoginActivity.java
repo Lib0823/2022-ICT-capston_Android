@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText pwEditText;
     Button btnLogin;
     Button btnJoin;
+    Button btnFindPw;
 
     //String sql;
     //Cursor cursor;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnJoin = (Button) findViewById(R.id.btnJoin);
-
+        btnFindPw = (Button) findViewById(R.id.btnFindPw);
         //helper = new DatabaseOpenHelper(LoginActivity.this, DatabaseOpenHelper.tableName, null, version);
         //database = helper.getWritableDatabase();
 
@@ -164,6 +165,17 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),JoinActivity.class);
                 startActivity(intent);
                 //finish();
+            }
+        });
+
+        btnFindPw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //비밀번호 재설정 버튼 클릭
+                Toast toast = Toast.makeText(LoginActivity.this, "비밀번호 재설정 화면으로 이동", Toast.LENGTH_SHORT);
+                toast.show();
+                Intent intent = new Intent(getApplicationContext(),FindPWActivity.class);
+                startActivity(intent);
             }
         });
 

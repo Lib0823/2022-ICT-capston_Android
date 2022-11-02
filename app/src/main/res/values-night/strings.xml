@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnFindPw">비밀번호 재설정</string>
+    <string name="btnSendEmail">이메일에 전송하기</string>
+</resources>
