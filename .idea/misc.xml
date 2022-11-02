@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Leeinbeom/AndroidStudioProjects/2022_ICTcapston_Android/app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.1805" />
+        <entry key="..\:/Users/Leeinbeom/AndroidStudioProjects/2022_ICTcapston_Android/app/src/main/res/layout/activity_manbo.xml" value="0.1757852077001013" />
+        <entry key="..\:/Users/Leeinbeom/AndroidStudioProjects/2022_ICTcapston_Android/app/src/main/res/menu/botton_menu.xml" value="0.19895833333333332" />
         <entry key="..\:/Users/Leeinbeom/AndroidStudioProjects/project2/app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.1405" />
         <entry key="..\:/Users/Leeinbeom/AndroidStudioProjects/project2/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.14" />
         <entry key="..\:/Users/Leeinbeom/AndroidStudioProjects/project2/app/src/main/res/drawable/menu_selector_color.xml" value="0.1405" />
