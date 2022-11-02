@@ -5,4 +5,6 @@
     <string name="pwDes">비밀번호</string>
     <string name="btnLogin">로그인</string>
     <string name="btnJoin">회원가입</string>
+    <string name="btnFindPw">비밀번호 재설정</string>
+    <string name="btnSendEmail">이메일에 전송하기</string>
 </resources>

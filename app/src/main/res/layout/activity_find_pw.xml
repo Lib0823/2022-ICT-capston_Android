@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".FindPWActivity"
     android:orientation="vertical">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,72 +40,37 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="50dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/id"/>
-        <EditText
-            android:id="@+id/idEditText"
-            android:text=""
-            android:textSize="23sp"
-            android:layout_width="270dp"
-            android:layout_height="50dp"
-            android:inputType="textPersonName"
-            android:layout_gravity="center"
-            android:hint="ID"
-            android:contentDescription="@string/idDes"
-            android:layout_alignParentEnd="true"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/pw"/>
         <EditText
-            android:id="@+id/pwEditText"
+            android:id="@+id/et_email"
             android:text=""
             android:textSize="23sp"
-            android:layout_width="270dp"
-            android:layout_height="50dp"
-            android:inputType="textPassword"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
             android:layout_gravity="center"
-            android:hint="PW"
-            android:contentDescription="@string/pwDes"
-            android:layout_alignParentEnd="true"
-            tools:ignore="LabelFor" />
+            android:hint="E-mail을 입력해주세요."
+            android:contentDescription="@string/idDes"
+            android:layout_alignParentEnd="true" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnLogin"
-        android:text="@string/btnLogin"
+        android:id="@+id/btn_sendEmail"
+        android:text="@string/btnSendEmail"
         android:layout_gravity="center"
         android:backgroundTint="@color/bg_blue"
-        android:layout_width="350dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnJoin"
-        android:text="@string/btnJoin"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/bg_blue"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnFindPw"
-        android:text="@string/btnFindPw"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/bg_blue"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
