@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -46,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef = mFirebaseDB.getInstance().getReference();
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
     private int run1;
-    String sql;
-    Cursor cursor;
+    private ImageButton developer, battleBtn;
 
     private BottomNavigationView bottomNavi;
 
@@ -56,17 +56,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         welcome = findViewById(R.id.welcomeMessage);
-        /*//DataBase연결부분
-        helper = new DatabaseOpenHelper(MainActivity.this, DatabaseOpenHelper.tableName, null, version);
-        database = helper.getWritableDatabase();
 
+        battleBtn = findViewById(R.id.battleBtn);
+        battleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, BattleActivity.class);
+                startActivity(intent);
+            }
+        });
 
-
-        sql = "SELECT * FROM "+ helper.tableName + " WHERE login = '1'";
-        cursor = database.rawQuery(sql, null);
-        cursor.moveToNext();   // 첫번째에서 다음 레코드가 없을때까지 읽음
-        String name = cursor.getString(2);*/
-    //welcome.setText(name + "\ntoday's workout");
+        developer = findViewById(R.id.developer);
+        developer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Copyright 2022.").setMessage("LeeSoo, LeeInbeom All rights reserved.");
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
 
         read();
 
