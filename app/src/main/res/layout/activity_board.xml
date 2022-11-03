@@ -28,46 +28,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내용"
-            android:textSize="8pt"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp"/>
         <EditText
             android:id="@+id/searchText"
             android:layout_gravity="center"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"/>
-        <Button
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Search"
+            android:padding="5dp"
+            android:background="@drawable/border"
+            android:layout_weight="1" />
+        <ImageButton
             android:id="@+id/searchBtn"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/bg_blue"
-            android:text="검색"/>
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/search"/>
     </LinearLayout>
 
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="390dp">
+            android:layout_height="450dp">
         </ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
         <EditText
             android:id="@+id/contentText"
-            android:layout_width="340dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"/>
         <Button
             android:id="@+id/contentBtn"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/bg_blue"
+            android:layout_marginRight="5dp"
             android:text="등록"/>
     </LinearLayout>
 
