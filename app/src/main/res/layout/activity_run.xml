@@ -14,6 +14,51 @@
         android:orientation="vertical">
     </LinearLayout>
 
+    <!-- 날씨 정보 레이아웃 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/radius_bottom_navi"
+        android:orientation="vertical"
+        android:elevation="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivWeather"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/tvTemperatures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="10 ℃"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvWeather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:text="현재 날씨는 맑은 상태입니다."
+                android:textSize="15dp"/>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +75,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:textStyle="bold"
-            android:textSize="40sp"/>
+            android:textSize="35sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/distance"
                 android:text="0.00km"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:gravity="center"/>
@@ -55,7 +100,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:gravity="center"/>
@@ -65,7 +110,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:text="0.0kcal"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:gravity="center"/>
@@ -83,7 +128,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:text="거리"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:layout_weight="1"
                 android:gravity="center"/>
             <!--만보기-->
@@ -91,7 +136,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:text="걸음수"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:layout_weight="1"
                 android:gravity="center"/>
             <!--칼로리-->
@@ -99,7 +144,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:text="칼로리"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:layout_weight="1"
                 android:gravity="center"/>
 
@@ -109,7 +154,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
             <Button
                 android:id="@+id/startBtn"
                 android:layout_width="wrap_content"
@@ -120,8 +167,9 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:background="@drawable/radius_bottom_navi"
+                android:elevation="20dp"
                 android:text="시작"/>
             <Button
                 android:id="@+id/stopBtn"
@@ -133,8 +181,9 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:background="@drawable/radius_bottom_navi"
+                android:elevation="20dp"
                 android:text="정지"/>
         </LinearLayout>
     </LinearLayout>
