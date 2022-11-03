@@ -80,14 +80,6 @@ public class BoardActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         list.setSelection(adapter.getCount() - 1);
 
-        //sql = "SELECT id, content FROM "+ helperBoard.tableNameBoard + " WHERE field = '"+ field +"'";
-        //cursor = databaseBoard.rawQuery(sql, null);
-
-        /*while(cursor.moveToNext()){
-            contentId = cursor.getString(0);
-            content = cursor.getString(1);
-            data.add(contentId+ " : " +content);
-        }*/
         adapter.notifyDataSetChanged();
         list.setSelection(adapter.getCount() - 1);
 

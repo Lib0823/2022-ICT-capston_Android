@@ -10,6 +10,13 @@
         android:layout_height="match_parent"
         android:background="@color/bg_blue">
 
+        <ImageButton
+            android:id="@+id/developer"
+            android:layout_width="33dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_baseline_format_align_right_24"
+            android:backgroundTint="@color/bg_white"
+            android:layout_gravity="right"/>
 
         <TextView
             android:id="@+id/welcomeMessage"
@@ -20,8 +27,7 @@
             android:textSize="13pt"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
             />
 
@@ -44,14 +50,14 @@
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="110dp"
             android:id="@+id/moveCal"
             android:src="@drawable/calendar"
             android:onClick="start"
-            android:elevation="5dp"
+            android:elevation="3dp"
             android:background="@drawable/radius_bottom_navi"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             />
 
         <TextView
@@ -68,35 +74,51 @@
         <ImageButton
             android:id="@+id/runBtn"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="100dp"
             android:scaleType="fitCenter"
-            android:elevation="5dp"
+            android:elevation="3dp"
             android:background="@drawable/radius_bottom_navi"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/ic_baseline_directions_run_24"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/solo"
             />
 
         <ProgressBar
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
+            android:layout_height="15dp"
             android:max="30"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:progressTint="#66FFFF"
             android:progressBackgroundTint="#E0E0E0"
             android:id="@+id/progress" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Copyright 2022.\nLee Inbeom All rights reserved."
-            android:textSize="7pt"
-            android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="대결 하기"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:textSize="8pt"
+                android:textStyle="bold"
+                android:layout_marginBottom="7dp"
+                android:gravity="left"/>
+
+            <ImageButton
+                android:id="@+id/battleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="fitCenter"
+                android:elevation="3dp"
+                android:background="@drawable/radius_bottom_navi"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="25dp"
+                android:src="@drawable/duo"
+                />
+
 
         <LinearLayout
         android:orientation="horizontal"
