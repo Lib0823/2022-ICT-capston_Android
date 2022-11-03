@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                     welcome.setText("회원정보를 불러오지 못했습니다.");
                 else
 
-                    welcome.setText(userInfo[0].getName()+"\ntoday's workout");
+                    welcome.setText(userInfo[0].getName() + "님 \nToday's Work Out");
             }
 
             @Override

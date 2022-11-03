@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Context;
@@ -31,7 +32,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -177,7 +180,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
         }
 
-
         // T Map View
         tMapView = new TMapView(this);
 
@@ -191,7 +193,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
 
         // T Map View Using Linear Layout
-        LinearLayout linearLayoutTmap = (LinearLayout)findViewById(R.id.linearLayoutTmap);
+        LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
         linearLayoutTmap.addView(tMapView);
 
         // Request For GPS permission
