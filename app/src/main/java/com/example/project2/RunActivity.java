@@ -11,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import com.bumptech.glide.Glide;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,7 +33,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +52,20 @@ import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,7 +86,18 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     private long pauseOffset;
     private TextView distance, kcal;
     private double countKcal=0.0;
+    private int result = 0;
 
+    // 날씨
+    private double longitude = 37.4481;    // 인하공전 경도
+    private double latitude = 126.6585;    // 인하공전 위도
+    private String weatherResult = "";     // 날씨정보
+    private ImageView ivWeather;
+    private TextView tvTemperatures, tvWeather;
+    private String baseDate;                                    // 조회하고 싶은 날짜
+    private String baseTime;                                    // 조회하고 싶은 시간
+    private String weather;                                     // 날씨 결과
+    private String tmperature;                                  // 기온 결과
 
     //걸음수
     SensorManager sensorManager;
@@ -130,11 +159,57 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         finish();
     }
 
+    @SuppressLint("WrongViewCast")
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
+
+        // 날씨 이미지 뷰
+        ivWeather = findViewById(R.id.ivWeather);
+        tvTemperatures = findViewById(R.id.tvTemperatures);
+        tvWeather = findViewById(R.id.tvWeather);
+
+        Glide.with(this).load(R.mipmap.sun).into(ivWeather);
+
+        // 날씨
+        int beginIndex = weatherResult.lastIndexOf(",") + 1;
+        int endIndex = weatherResult.length();
+        // 혹시 모를 에러 처리하기!!
+        if (beginIndex != 0) {
+            Log.d("정보", String.valueOf(beginIndex));
+            String temperatures = weatherResult.substring(beginIndex, endIndex);    // 기온
+            String weather = weatherResult.substring(0, (beginIndex - 1));    // 날씨
+            tvTemperatures.setText(temperatures);
+            tvWeather.setText(weather);
+            // 날씨에 따라 이미지 변경
+            if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
+                Glide.with(ivWeather).load(R.mipmap.sun).into(ivWeather);
+                ivWeather.setImageResource(R.mipmap.sun);
+            } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
+                Glide.with(ivWeather).load(R.mipmap.rain).into(ivWeather);
+                ivWeather.setImageResource(R.mipmap.rain);
+            } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
+                Glide.with(ivWeather).load(R.mipmap.cloudy).into(ivWeather);
+                ivWeather.setImageResource(R.mipmap.cloudy);
+            } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
+                Glide.with(ivWeather).load(R.mipmap.clouds).into(ivWeather);
+                ivWeather.setImageResource(R.mipmap.clouds);
+            }
+        }
+
+        new Thread(() -> {
+            try {
+                weatherResult = lookUpWeather(longitude, latitude);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        // 여기까지 날씨 구하기
+        
         kcal = findViewById(R.id.kcal);
 
         //데이터 읽기
@@ -177,7 +252,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
         }
 
-
         // T Map View
         tMapView = new TMapView(this);
 
@@ -191,7 +265,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         tMapView.setLanguage(TMapView.LANGUAGE_KOREAN);
 
         // T Map View Using Linear Layout
-        LinearLayout linearLayoutTmap = (LinearLayout)findViewById(R.id.linearLayoutTmap);
+        LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
         linearLayoutTmap.addView(tMapView);
 
         // Request For GPS permission
@@ -226,6 +300,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                result = 1;
                 if(!running){
                     chrono.setBase(SystemClock.elapsedRealtime() - pauseOffset);
                     chrono.start();
@@ -238,6 +313,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                result = 0;
                 chrono.stop();
                 pauseOffset = SystemClock.elapsedRealtime() - chrono.getBase();
                 running = false;
@@ -275,19 +351,18 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         }
     }
 
-
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         // 걸음 센서 이벤트 발생시
         if(event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR){
-
-            if(event.values[0]==1.0f){
-                // 센서 이벤트가 발생할때 마다 걸음수 증가
-                currentSteps++;
-                stepCount.setText(String.valueOf(currentSteps));
-                countKcal = currentSteps * 0.04;
-                kcal.setText((String.format("%.2f", countKcal)+"kcal"));
+            if(result == 1) {
+                if (event.values[0] == 1.0f) {
+                    // 센서 이벤트가 발생할때 마다 걸음수 증가
+                    currentSteps++;
+                    stepCount.setText(String.valueOf(currentSteps));
+                    countKcal = currentSteps * 0.04;
+                    kcal.setText((String.format("%.2f", countKcal) + "kcal"));
+                }
             }
 
         }
@@ -366,6 +441,144 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
                 break;
         }
             return super.onTouchEvent(event);
+    }
+    // 날씨 구하는 메서드
+    public String lookUpWeather(double dx, double dy) throws IOException, JSONException {
+        // 현재 위치 필드 저장
+        int ix = (int) dx;
+        int iy = (int) dy;
+        String nx = String.valueOf(ix);
+        String ny = String.valueOf(iy);
+        Log.i("날씨: 위도!!", nx);
+        Log.i("날씨: 경도!!", ny);
+
+        // 현재 날짜 구하기 (시스템 시계, 시스템 타임존)
+        LocalDate date = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            date = LocalDate.now();
+        }
+        LocalTime time = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            time = LocalTime.now();
+        }
+        baseDate = String.valueOf(date).replaceAll("-", "");
+        int correctionDate = Integer.parseInt(baseDate) - 1;     // 날씨 API : 매 시각 45분 이후 호출 // 오전 12시인 경우 사용
+
+        // 시간(30분 단위로 맞추기)
+        DateTimeFormatter formatter1 = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter1 = DateTimeFormatter.ofPattern("HHmm");
+        }
+        DateTimeFormatter formatter2 = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter2 = DateTimeFormatter.ofPattern("HH");
+        }
+
+        int itime1 = 0; // 실제 시간
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            itime1 = Integer.parseInt(time.format(formatter1));
+        }
+        int itime2 = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            itime2 = Integer.parseInt(time.format(formatter2)) - 1;
+        }
+
+        //  /*06시30분 발표(30분 단위)*/
+        if (itime2 <= 7) {
+            itime2 = 23;
+            baseDate = String.valueOf(correctionDate);
+            baseTime = "2100";
+        } else {
+            // api가 30분 단위로 업데이트
+            if (itime1 % 100 >= 30) baseTime = itime2 + "30";
+            else baseTime = itime2 + "00";
+        }
+        // 오전에는 시간이 3자리로 나옴...
+        if (baseTime.length() == 3) {
+            baseTime = "0" + baseTime;
+        }
+
+        String weatherResult = "현재 날씨를 확인할 수가 없어요.";
+
+        Log.i("날씨: 입력일자!!", baseDate);
+        Log.i("날씨: 입력시간!!", baseTime);
+
+        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst"); /*URL*/
+        urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=eWD3WU%2B78w6UiyRQFINsKmuNGrDvg3JnKDnefyrBx1jEAGOxNI%2FuFwXB5W7LgsBunL2cQz6OqBLIuJQWDES1SQ%3D%3D"); /*Service Key*/
+        urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*한 페이지 결과 수*/
+        urlBuilder.append("&" + URLEncoder.encode("dataType", "UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8")); /*요청자료형식(XML/JSON) Default: XML*/
+        urlBuilder.append("&" + URLEncoder.encode("base_date", "UTF-8") + "=" + URLEncoder.encode(baseDate, "UTF-8")); /*‘21년 6월 28일 발표*/
+        urlBuilder.append("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(baseTime, "UTF-8")); /*06시30분 발표(30분 단위)*/
+        urlBuilder.append("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode(nx, "UTF-8")); /*예보지점 X 좌표값*/
+        urlBuilder.append("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode(ny, "UTF-8")); /*예보지점 Y 좌표값*/
+
+        /*
+         * GET방식으로 전송해서 파라미터 받아오기
+         */
+        URL url = new URL(urlBuilder.toString());
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+        BufferedReader rd;
+        if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+        String result = sb.toString();
+
+        Log.d("정보", result);
+        //=======이 밑에 부터는 json에서 데이터 파싱해 오는 부분이다=====//
+
+        // response 키를 가지고 데이터를 파싱
+        JSONObject jsonObj_1 = new JSONObject(result);
+        String response = jsonObj_1.getString("response");
+
+        // response 로 부터 body 찾기
+        JSONObject jsonObj_2 = new JSONObject(response);
+        String body = jsonObj_2.getString("body");
+
+        // body 로 부터 items 찾기
+        JSONObject jsonObj_3 = new JSONObject(body);
+        String items = jsonObj_3.getString("items");
+        Log.i("ITEMS", items);
+
+        // items로 부터 itemlist 를 받기
+        JSONObject jsonObj_4 = new JSONObject(items);
+        JSONArray jsonArray = jsonObj_4.getJSONArray("item");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            jsonObj_4 = jsonArray.getJSONObject(i);
+            String fcstValue = jsonObj_4.getString("fcstValue");
+            String category = jsonObj_4.getString("category");
+
+            if (category.equals("SKY")) {
+                weather = "현재 날씨는 ";
+                if (fcstValue.equals("1")) {
+                    weather += "맑은 상태입니다.";
+                } else if (fcstValue.equals("2")) {
+                    weather += "비가 오는 상태입니다.";
+                } else if (fcstValue.equals("3")) {
+                    weather += "구름이 많은 상태입니다.";
+                } else if (fcstValue.equals("4")) {
+                    weather += "흐린 상태입니다.";
+                }
+            }
+            if (category.equals("T3H") || category.equals("T1H")) {
+                tmperature = fcstValue + " ℃";
+            }
+            weatherResult = weather + "," + tmperature;
+        }
+        Log.i("리턴!!", weatherResult);
+        return weatherResult;
     }
 
 }

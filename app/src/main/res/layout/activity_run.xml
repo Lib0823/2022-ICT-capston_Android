@@ -1,118 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RunActivity"
-    android:background="@color/bg_gray"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="러닝"
-        android:textSize="13pt"
-        android:gravity="center"/>
+    tools:context=".RunActivity">
 
     <LinearLayout
         android:id="@+id/linearLayoutTmap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+    </LinearLayout>
 
+    <!-- 날씨 정보 레이아웃 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/radius_bottom_navi"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:elevation="20dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivWeather"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/tvTemperatures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="10 ℃"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvWeather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:text="현재 날씨는 맑은 상태입니다."
+                android:textSize="15dp"/>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <Button
-        android:id="@+id/startBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="시작"/>
-    <Button
-        android:id="@+id/stopBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="정지"/>
-    </LinearLayout>
+        android:background="@drawable/radius_bottom"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:elevation="20dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="시간 : "
-        android:textSize="13pt"/>
-    <Chronometer
-        android:id="@+id/chrono"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="13pt"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
+        <Chronometer
+            android:id="@+id/chrono"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="거리 : "
-            android:textSize="13pt"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/distance"
-            android:text="0.00"
-            android:textSize="13pt"/>
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:textSize="35sp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="만보기 : "
-            android:textSize="13pt"/>
-        <TextView
-            android:id="@+id/stepCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="13pt"/>
-    </LinearLayout>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+            <!-- 거리 -->
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/distance"
+                android:text="0.00km"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"/>
+            <!--만보기-->
+            <TextView
+                android:id="@+id/stepCount"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"/>
+            <!--칼로리-->
+            <TextView
+                android:id="@+id/kcal"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="0.0kcal"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="칼로리 : "
-            android:textSize="13pt"/>
-        <TextView
-            android:id="@+id/kcal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0.0"
-            android:textSize="13pt"/>
-    </LinearLayout>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp">
+            <!-- 거리 -->
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="거리"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                android:gravity="center"/>
+            <!--만보기-->
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="걸음수"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                android:gravity="center"/>
+            <!--칼로리-->
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:text="칼로리"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
+            <Button
+                android:id="@+id/startBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:background="@drawable/radius_bottom_navi"
+                android:elevation="20dp"
+                android:text="시작"/>
+            <Button
+                android:id="@+id/stopBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:background="@drawable/radius_bottom_navi"
+                android:elevation="20dp"
+                android:text="정지"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>
