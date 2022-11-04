@@ -34,7 +34,15 @@
         <activity
             android:name=".BoardActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity
+            android:name=".BoardAddActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
         <activity
             android:name=".RunActivity"
             android:exported="false" />

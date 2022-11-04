@@ -101,13 +101,13 @@
                 android:hint="내용을 입력해주세요."
                 android:gravity="top"/>
         </LinearLayout>
+
         <Button
             android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="작성하기">
-        </Button>
+            android:text="작성하기"></Button>
 
     </LinearLayout>
 </LinearLayout>

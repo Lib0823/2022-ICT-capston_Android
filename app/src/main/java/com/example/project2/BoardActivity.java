@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,7 +40,8 @@ public class BoardActivity extends AppCompatActivity {
     private List<String> data;
     private ArrayAdapter<String> adapter;
     private BottomNavigationView bottomNavi, boardNavi;
-    private Button contentBtn, btn_write;
+    private Button contentBtn;
+    private FloatingActionButton btn_write;
     private ImageButton searchBtn;
     private TextView contentText, searchText, boardTitle;
     private String id, contentId, content, field = "free", search;
@@ -87,7 +89,7 @@ public class BoardActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); // 객체에 정보담을 배열
-        mDatabaseRef1 = mFirebaseDB.getInstance().getReference().child("board").child(field);
+        mDatabaseRef1 = mFirebaseDB.getInstance().getReference().child("board").child(field).getRef();
         mDatabaseRef1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,7 +101,6 @@ public class BoardActivity extends AppCompatActivity {
                 }
                 adapter1.notifyDataSetChanged(); // 리스트에 저장 및 새로고침
             }
-
             // DB 에러처리
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -165,6 +166,7 @@ public class BoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BoardActivity.this, BoardAddActivity.class);
+                intent.putExtra("field", field);
                 startActivity(intent);
             }
         });
