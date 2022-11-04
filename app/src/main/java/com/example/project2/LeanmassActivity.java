@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -26,6 +30,10 @@ public class LeanmassActivity extends AppCompatActivity {
     private static int height, weight, age;
     private static String gender;
 
+    private ImageButton lf1, lf2, lf3, lf4, lf5;
+    private ImageButton ls1, ls2, ls3, ls4, ls5;
+    private ImageButton lb1, lb2, lb3, lb4, lb5;
+
     int version = 1;
     DatabaseOpenHelper helper;
     SQLiteDatabase database;
@@ -41,6 +49,147 @@ public class LeanmassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leanmass);
+
+        // imageButton
+        // 운동
+        lf1 = findViewById(R.id.lf1);
+        lf1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=tPVzsTr7ULw"));
+                startActivity(intent);
+            }
+        });
+        lf2 = findViewById(R.id.lf2);
+        lf2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=V-Pg-MrVBeE"));
+                startActivity(intent);
+            }
+        });
+        lf3 = findViewById(R.id.lf3);
+        lf3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=wbAZY5HPsbc"));
+                startActivity(intent);
+            }
+        });
+        lf4 = findViewById(R.id.lf4);
+        lf4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=H4AZO-KiAPo"));
+                startActivity(intent);
+            }
+        });
+        lf5 = findViewById(R.id.lf5);
+        lf5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=gTofe6nrSwA"));
+                startActivity(intent);
+            }
+        });
+        // 식단
+        ls1 = findViewById(R.id.ls1);
+        ls1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=WHqi90lNeX8&t=147s"));
+                startActivity(intent);
+            }
+        });
+        ls2 = findViewById(R.id.ls2);
+        ls2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=w4rkqonvCSA"));
+                startActivity(intent);
+            }
+        });
+        ls3 = findViewById(R.id.ls3);
+        ls3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=MWH8g6hCiWM"));
+                startActivity(intent);
+            }
+        });
+        ls4 = findViewById(R.id.ls4);
+        ls4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=ApobDUjr7xc"));
+                startActivity(intent);
+            }
+        });
+        ls5 = findViewById(R.id.ls5);
+        ls5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=aJWMx6NbmO0&t=282s"));
+                startActivity(intent);
+            }
+        });
+        // 보충제
+        lb1 = findViewById(R.id.lb1);
+        lb1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=k8KUr8LzaaA"));
+                startActivity(intent);
+            }
+        });
+        lb2 = findViewById(R.id.lb2);
+        lb2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=Dj3kYRr5zDo&t=779s"));
+                startActivity(intent);
+            }
+        });
+        lb3 = findViewById(R.id.lb3);
+        lb3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=RpZ6RGd0JHU"));
+                startActivity(intent);
+            }
+        });
+        lb4 = findViewById(R.id.lb4);
+        lb4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=TulXF8GiReA"));
+                startActivity(intent);
+            }
+        });
+        lb5 = findViewById(R.id.lb5);
+        lb5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=AGcu3d1-suw"));
+                startActivity(intent);
+            }
+        });
+
 
         final UserAccount[] userInfo = {new UserAccount()};
         //데이터 읽기

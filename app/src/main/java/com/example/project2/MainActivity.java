@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageButton moveCal, run;
 
-    /*int version = 1;
-    DatabaseOpenHelper helper;
-    SQLiteDatabase database;*/
     private TextView welcome;
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
     private FirebaseDatabase mFirebaseDB;
@@ -89,17 +86,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_fitness:
                         Intent intent = new Intent(MainActivity.this, FitnessActivity.class);
                         startActivity(intent);
-                        finish();
                         break;
                     case R.id.action_board:
                         Intent intent2 = new Intent(MainActivity.this, BoardActivity.class);
                         startActivity(intent2);
-                        finish();
                         break;
                     case R.id.action_info:
                         Intent intent3 = new Intent(MainActivity.this, InfoActivity.class);
                         startActivity(intent3);
-                        finish();
                         break;
                 }
                 return true;

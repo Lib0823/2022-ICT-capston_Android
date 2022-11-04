@@ -244,19 +244,16 @@ public class BoardActivity extends AppCompatActivity {
                     case R.id.action_home:
                         Intent intent = new Intent(BoardActivity.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
                         break;
                     case R.id.action_fitness:
                         Intent intent2 = new Intent(BoardActivity.this, FitnessActivity.class);
                         startActivity(intent2);
-                        finish();
                         break;
                     case R.id.action_board:
                         break;
                     case R.id.action_info:
                         Intent intent3 = new Intent(BoardActivity.this, InfoActivity.class);
                         startActivity(intent3);
-                        finish();
                         break;
                 }
                 return true;
