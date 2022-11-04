@@ -19,6 +19,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -48,6 +50,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.skt.Tmap.TMapGpsManager;
+import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
@@ -79,7 +82,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
     private UserAccount[] userInfo = {new UserAccount()};   // 출력전용 객체
     private UserAccount account = new UserAccount();        // 입력전용 객체
-    private String date;
+    private String date, tmperature;
     private static int run;
     private Chronometer chrono;
     private boolean running;
@@ -97,7 +100,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     private String baseDate;                                    // 조회하고 싶은 날짜
     private String baseTime;                                    // 조회하고 싶은 시간
     private String weather;                                     // 날씨 결과
-    private String tmperature;                                  // 기온 결과
 
     //걸음수
     SensorManager sensorManager;

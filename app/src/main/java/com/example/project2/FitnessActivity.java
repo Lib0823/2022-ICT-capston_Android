@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -34,7 +35,7 @@ public class FitnessActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef = mFirebaseDB.getInstance().getReference();
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
     private static int height, weight;
-
+    private long backBtnTime = 0;
     int version = 1;
     DatabaseOpenHelper helper;
     SQLiteDatabase database;
@@ -252,5 +253,17 @@ public class FitnessActivity extends AppCompatActivity {
         else if (userInfo[0].getDogName().equals(""))
             tvDogName.setText(userInfo[0].getDogName());*/
         return weight+","+height;
+    }
+    @Override
+    public void onBackPressed(){
+        long curTime = System.currentTimeMillis();
+        long gapTime = curTime- backBtnTime;
+
+        if(0 <= gapTime && 2000 >= gapTime) {
+            super.onBackPressed();
+        } else {
+            backBtnTime = curTime;
+            Toast.makeText(this,"한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

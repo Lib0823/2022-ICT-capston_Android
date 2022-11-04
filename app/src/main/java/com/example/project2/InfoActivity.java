@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InfoActivity extends AppCompatActivity {
-
+    private long backBtnTime = 0;
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
     private FirebaseDatabase mFirebaseDB;
     private DatabaseReference mDatabaseRef = mFirebaseDB.getInstance().getReference();
@@ -242,5 +242,17 @@ public class InfoActivity extends AppCompatActivity {
             welcome.setText("회원정보를 불러오지 못했습니다.");
         else if (userInfo[0].getDogName().equals(""))
             tvDogName.setText(userInfo[0].getDogName());*/
+    }
+    @Override
+    public void onBackPressed(){
+        long curTime = System.currentTimeMillis();
+        long gapTime = curTime- backBtnTime;
+
+        if(0 <= gapTime && 2000 >= gapTime) {
+            super.onBackPressed();
+        } else {
+            backBtnTime = curTime;
+            Toast.makeText(this,"한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

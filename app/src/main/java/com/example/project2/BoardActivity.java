@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -22,7 +20,6 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,16 +32,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardActivity extends AppCompatActivity {
-
+    private long backBtnTime = 0;
     private ListView list;
-    private List<String> data;
     private ArrayAdapter<String> adapter;
     private BottomNavigationView bottomNavi, boardNavi;
     private Button contentBtn;
     private FloatingActionButton btn_write;
     private ImageButton searchBtn;
-    private TextView contentText, searchText, boardTitle;
-    private String id, contentId, content, field = "free", search;
+    private TextView contentText, searchText, boardTitle, tv_title, tv_name, tv_date;
+    private String id, name, content, field = "free", search, title, date;
     private final BoardInfo[] boardInfo = {new BoardInfo()};
     private BoardInfo bi;
     final static String[] name1 = {"회원"};
@@ -68,11 +64,16 @@ public class BoardActivity extends AppCompatActivity {
     //String sql;
     //Cursor cursor;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
         na = readName();
+        tv_title = findViewById(R.id.tv_title);
+        tv_name = findViewById(R.id.tv_name);
+        tv_date = findViewById(R.id.tv_date);
+
         //DB
         /*helperBoard = new DatabaseOpenHelper(BoardActivity.this, DatabaseOpenHelper.tableNameBoard, null, version);
         helperUser = new DatabaseOpenHelper(BoardActivity.this, DatabaseOpenHelper.tableName, null, version);
@@ -202,36 +203,33 @@ public class BoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 search = searchText.getText().toString();
-                data.clear();
+                Log.d("정보", search);
+                if(!search.equals("")) {
+                    arrayList.clear();
 
-                //데이터 읽기
-                mDatabaseRef.child("board").child(field).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        boardInfo[0] = snapshot.getValue(BoardInfo.class);
-                        data.clear();
-
-                        for(DataSnapshot ss : snapshot.getChildren()){
-                            BoardInfo boardInfo1 = ss.getValue(BoardInfo.class);
-                            contentId = boardInfo1 .getName();
-                            content = boardInfo1 .getContent();
-                            if(content.contains(search))
-                                data.add(contentId + " : " + content);
+                    mDatabaseRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // 파이어베이스 데이터베이스 데이터를 받아오는 곳
+                            arrayList.clear();
+                            for(DataSnapshot ss : snapshot.getChildren()){
+                                BoardInfo boardInfo1 = ss.getValue(BoardInfo.class);
+                                title = boardInfo1.getTitle();
+                                if(title.contains(search)) {
+                                    arrayList.add(boardInfo1);
+                                }
+                            }
+                            adapter1.notifyDataSetChanged(); // 리스트에 저장 및 새로고침
                         }
-
-                        adapter.notifyDataSetChanged();
-                        list.setSelection(adapter.getCount() - 1);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                        data.clear();
-                        contentId = " ";
-                        content = " ";
-                        data.add(contentId + content);
-                        boardTitle.setText("게시글을 불러올 수가 없습니다.");
-                    }
-                });
+                        // DB 에러처리
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            arrayList.clear();
+                            Toast toast = Toast.makeText(BoardActivity.this, "게시글을 불러올 수가 없습니다.", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+                }
             }
         });
 
@@ -336,5 +334,17 @@ public class BoardActivity extends AppCompatActivity {
         });
         Log.d("이이이이름111111111", name1[0]);
         return name1[0];
+    }
+    @Override
+    public void onBackPressed(){
+        long curTime = System.currentTimeMillis();
+        long gapTime = curTime- backBtnTime;
+
+        if(0 <= gapTime && 2000 >= gapTime) {
+            super.onBackPressed();
+        } else {
+            backBtnTime = curTime;
+            Toast.makeText(this,"한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
