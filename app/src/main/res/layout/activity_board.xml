@@ -1,99 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BoardActivity">
-
-    <TextView
-        android:id="@+id/boardTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="게시판"
-        android:gravity="center"
-        android:textSize="10pt"
-        android:layout_margin="10dp"/>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/boardNavi"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/board_menu"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/searchText"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Search"
-            android:padding="5dp"
-            android:background="@drawable/border"
-            android:layout_weight="1" />
-        <ImageButton
-            android:id="@+id/searchBtn"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:scaleType="fitCenter"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/search"/>
-    </LinearLayout>
-
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="450dp">
-        </ListView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom">
-        <EditText
-            android:id="@+id/contentText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/contentBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/bg_blue"
-            android:layout_marginRight="5dp"
-            android:text="등록"/>
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottonNavi"
+        <TextView
+            android:id="@+id/boardTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="13dp"
-            android:background="@drawable/radius_bottom_navi"
+            android:text="게시판"
+            android:gravity="center"
+            android:textSize="10pt"
+            android:layout_margin="10dp"/>
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/boardNavi"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             app:labelVisibilityMode="labeled"
-            app:itemIconTint="#000000"
-            app:itemTextColor="#000000"
-            app:menu="@menu/botton_menu"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="383dp" />
+            app:menu="@menu/board_menu"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/searchText"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Search"
+                android:padding="5dp"
+                android:background="@drawable/border"
+                android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/searchBtn"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/search"/>
+        </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+            </androidx.recyclerview.widget.RecyclerView>
+            <!--<ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="450dp">
+            </ListView>-->
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom">
+            <EditText
+                android:id="@+id/contentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/contentBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/bg_blue"
+                android:layout_marginRight="5dp"
+                android:text="등록"/>
+        </LinearLayout> -->
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_baseline_add_circle_24"
+                android:layout_marginBottom="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true">
+
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+        </RelativeLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottonNavi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="13dp"
+        android:background="@drawable/radius_bottom_navi"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="#000000"
+        app:itemTextColor="#000000"
+        app:menu="@menu/botton_menu"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="383dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

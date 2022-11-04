@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/radius_background"
+            android:background="@drawable/radius_bottom"
             android:paddingTop="10dp">
 
             <TextView
@@ -46,8 +46,8 @@
                 android:textSize="8pt"
                 android:textStyle="bold"
                 android:layout_marginBottom="7dp"
+                android:layout_marginTop="10dp"
                 android:gravity="left"/>
-
 
         <ImageButton
             android:layout_width="match_parent"
