@@ -107,13 +107,28 @@
                 android:padding="5dp"
                 android:gravity="top"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_update"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="작성하기"></Button>
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:text="수정하기"></Button>
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="삭제하기"></Button>
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

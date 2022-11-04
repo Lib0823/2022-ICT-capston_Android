@@ -1,8 +1,6 @@
 package com.example.project2;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,22 +56,25 @@ public class BoardAddActivity extends AppCompatActivity {
 
 
 
-        btn_add = findViewById(R.id.btn_add);
+        btn_add = findViewById(R.id.btn_update);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 지금 술 취한 상태로 코드 짜는 내용.(2022-11-04 / 오후 10:30)
                 BoardInfo boardInfo = new BoardInfo();
+                String idToken = firebaseUser.getUid();
                 String title = et_title.getText().toString();
                 String date = date2;
                 String name = tv_name.getText().toString();
                 String content = et_content.getText().toString();
                 String field = getIntent().getStringExtra("field");
 
+                boardInfo.setIdToken(idToken);
                 boardInfo.setTitle(title);
                 boardInfo.setDate(date);
                 boardInfo.setName(name);
                 boardInfo.setContent(content);
+                boardInfo.setField(field);
                 mDatabaseRef1.child("board").child(field).push().setValue(boardInfo);
                 Toast toast = Toast.makeText(BoardAddActivity.this, "게시물 저장이 완료되었습니다.", Toast.LENGTH_SHORT);
                 toast.show();
@@ -105,4 +106,5 @@ public class BoardAddActivity extends AppCompatActivity {
             }
         });
     }
+
 }

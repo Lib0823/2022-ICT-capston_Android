@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -14,6 +15,7 @@ public class BattleActivity extends AppCompatActivity {
     ListView list;
     ArrayList data;
     ArrayAdapter adapter;
+    EditText battleId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class BattleActivity extends AppCompatActivity {
                 R.array.battleDay, android.R.layout.simple_spinner_item);
         battleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         battleSpinner.setAdapter(battleAdapter);
+
+        battleId = findViewById(R.id.battleId);
 
     }
 }

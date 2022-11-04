@@ -86,30 +86,42 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <ImageButton
-            android:id="@+id/dietBtn"
+            android:id="@+id/dietBtn1"
             android:layout_width="170dp"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/d1"/>
         <ImageButton
-            android:id="@+id/leanBtn"
+            android:id="@+id/dietBtn2"
             android:layout_width="170dp"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/d2"/>
         <ImageButton
-            android:id="@+id/bulkBtn"
+            android:id="@+id/dietBtn3"
             android:layout_width="170dp"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/d3"/>
+        <ImageButton
+            android:id="@+id/dietBtn4"
+            android:layout_width="170dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/d4"/>
+        <ImageButton
+            android:id="@+id/dietBtn5"
+            android:layout_width="170dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/d5"/>
     </LinearLayout>
     </HorizontalScrollView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="닭가슴살"
+        android:text="식단"
         android:layout_marginTop="20dp"
         android:textSize="10pt"/>
         <HorizontalScrollView
@@ -120,23 +132,35 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <ImageButton
-                    android:id="@+id/aBtn"
+                    android:id="@+id/eatBtn1"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e1"/>
                 <ImageButton
-                    android:id="@+id/bBtn"
+                    android:id="@+id/eatBtn2"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e2"/>
                 <ImageButton
-                    android:id="@+id/cBtn"
+                    android:id="@+id/eatBtn3"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e3"/>
+                <ImageButton
+                    android:id="@+id/eatBtn4"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e4"/>
+                <ImageButton
+                    android:id="@+id/eatBtn5"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e5"/>
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -154,23 +178,35 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <ImageButton
-                    android:id="@+id/dBtn"
+                    android:id="@+id/proBtn1"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p1"/>
                 <ImageButton
-                    android:id="@+id/eBtn"
+                    android:id="@+id/proBtn2"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p2"/>
                 <ImageButton
-                    android:id="@+id/fBtn"
+                    android:id="@+id/proBtn3"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p3"/>
+                <ImageButton
+                    android:id="@+id/proBtn4"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p4"/>
+                <ImageButton
+                    android:id="@+id/proBtn5"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p5"/>
             </LinearLayout>
         </HorizontalScrollView>
 

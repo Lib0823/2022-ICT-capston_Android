@@ -4,6 +4,7 @@ import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title;
         TextView tv_date;
-        TextView tv_views;
         TextView tv_name;
 
         public CustomViewHolder(@NonNull View itemView) {
@@ -67,10 +67,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                     int curPos = getAdapterPosition();      //현재 선택한 리스트 아이템 위치
                     BoardInfo itemList = arrayList.get(curPos);
                     Intent intent =  new Intent(context, DetailActivity.class);   //화면 넘겨주기
+                    intent.putExtra("idToken", itemList.getIdToken());
                     intent.putExtra("name", itemList.getName());
                     intent.putExtra("content", itemList.getContent());
                     intent.putExtra("title", itemList.getTitle());
                     intent.putExtra("date", itemList.getDate());
+                    intent.putExtra("itemList", String.valueOf(itemList));
+                    Log.d("위치 확인", String.valueOf(itemList));
+                    Log.d("위치 확인", String.valueOf(curPos));
                     context.startActivity(intent);
                 }
             });

@@ -8,12 +8,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
@@ -38,6 +40,7 @@ public class DietActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
     private static int height, weight, age;
     private static String gender;
+    private ImageButton d1,d2, d3, d4, d5, e1, e2, e3, e4, e5, p1, p2, p3, p4, p5;
 
     int version = 1;
     DatabaseOpenHelper helper;
@@ -55,6 +58,159 @@ public class DietActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet);
         final UserAccount[] userInfo = {new UserAccount()};
+        d1 = findViewById(R.id.dietBtn1);
+        d2 = findViewById(R.id.dietBtn2);
+        d3 = findViewById(R.id.dietBtn3);
+        d4 = findViewById(R.id.dietBtn4);
+        d5 = findViewById(R.id.dietBtn5);
+
+        d1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=l1sRulmFDoA"));
+                startActivity(intent);
+            }
+        });
+
+        d2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=DQrsQiqphkg"));
+                startActivity(intent);
+            }
+        });
+
+        d3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=uauQBXBUIG8"));
+                startActivity(intent);
+            }
+        });
+
+        d4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=eRsb26UQ6wM"));
+                startActivity(intent);
+            }
+        });
+
+        d5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=CYcLODSeC-c"));
+                startActivity(intent);
+            }
+        });
+
+        e1 = findViewById(R.id.eatBtn1);
+        e2 = findViewById(R.id.eatBtn2);
+        e3 = findViewById(R.id.eatBtn3);
+        e4 = findViewById(R.id.eatBtn4);
+        e5 = findViewById(R.id.eatBtn5);
+
+        e1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=WHqi90lNeX8&t=147s"));
+                startActivity(intent);
+            }
+        });
+
+        e2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=w4rkqonvCSA"));
+                startActivity(intent);
+            }
+        });
+
+        e3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=MWH8g6hCiWM"));
+                startActivity(intent);
+            }
+        });
+
+        e4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=ApobDUjr7xc"));
+                startActivity(intent);
+            }
+        });
+
+        e5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=aJWMx6NbmO0&t=282s"));
+                startActivity(intent);
+            }
+        });
+
+        p1 = findViewById(R.id.proBtn1);
+        p2 = findViewById(R.id.proBtn2);
+        p3 = findViewById(R.id.proBtn3);
+        p4 = findViewById(R.id.proBtn4);
+        p5 = findViewById(R.id.proBtn5);
+
+        p1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=k8KUr8LzaaA"));
+                startActivity(intent);
+            }
+        });
+
+        p2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=Dj3kYRr5zDo&t=779s"));
+                startActivity(intent);
+            }
+        });
+
+        p3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=RpZ6RGd0JHU"));
+                startActivity(intent);
+            }
+        });
+
+        p4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=TulXF8GiReA"));
+                startActivity(intent);
+            }
+        });
+
+        p5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=AGcu3d1-suw"));
+                startActivity(intent);
+            }
+        });
+
         //데이터 읽기
         mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

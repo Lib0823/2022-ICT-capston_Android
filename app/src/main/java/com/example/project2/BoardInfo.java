@@ -5,6 +5,8 @@ public class BoardInfo {
     private String content;
     private String title;
     private String date;
+    private String idToken;
+    private String field;
 
     // 생성자 삭제하면 안됌!
     public BoardInfo() {}
@@ -44,5 +46,21 @@ public class BoardInfo {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getIdToken() {
+        return idToken;
+    }
+
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
     }
 }
