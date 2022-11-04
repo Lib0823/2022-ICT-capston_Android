@@ -109,7 +109,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="닭가슴살"
+        android:text="식단"
         android:layout_marginTop="20dp"
         android:textSize="10pt"/>
         <HorizontalScrollView

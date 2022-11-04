@@ -86,30 +86,42 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <ImageButton
-                    android:id="@+id/dietBtn"
+                    android:id="@+id/bf1"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bf1"/>
                 <ImageButton
-                    android:id="@+id/leanBtn"
+                    android:id="@+id/bf2"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bf2"/>
                 <ImageButton
-                    android:id="@+id/bulkBtn"
+                    android:id="@+id/bf3"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bf3"/>
+                <ImageButton
+                    android:id="@+id/bf4"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bf4"/>
+                <ImageButton
+                    android:id="@+id/bf5"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bf5"/>
             </LinearLayout>
         </HorizontalScrollView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="닭가슴살"
+            android:text="식단"
             android:layout_marginTop="20dp"
             android:textSize="10pt"/>
         <HorizontalScrollView
@@ -120,23 +132,35 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <ImageButton
-                    android:id="@+id/aBtn"
+                    android:id="@+id/bs1"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bs1"/>
                 <ImageButton
-                    android:id="@+id/bBtn"
+                    android:id="@+id/bs2"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bs2"/>
                 <ImageButton
-                    android:id="@+id/cBtn"
+                    android:id="@+id/bs3"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bs3"/>
+                <ImageButton
+                    android:id="@+id/bs4"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bs4"/>
+                <ImageButton
+                    android:id="@+id/bs5"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bs5"/>
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -154,23 +178,35 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <ImageButton
-                    android:id="@+id/dBtn"
+                    android:id="@+id/bb1"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bb1"/>
                 <ImageButton
-                    android:id="@+id/eBtn"
+                    android:id="@+id/bb2"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bb2"/>
                 <ImageButton
-                    android:id="@+id/fBtn"
+                    android:id="@+id/bb3"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_sentiment_very_dissatisfied_24"/>
+                    android:src="@drawable/bb3"/>
+                <ImageButton
+                    android:id="@+id/bb4"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bb4"/>
+                <ImageButton
+                    android:id="@+id/bb5"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bb5"/>
             </LinearLayout>
         </HorizontalScrollView>
 

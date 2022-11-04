@@ -87,6 +87,7 @@ public class InfoActivity extends AppCompatActivity {
 
 
         // 이 친구의 역활 물어보기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 아마 하단버튼?
+        // 하단 네비게이션바 맞는데 역할 입니다 행님
         bottomNavi = findViewById(R.id.bottonNavi);
         bottomNavi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -95,17 +96,14 @@ public class InfoActivity extends AppCompatActivity {
                     case R.id.action_home:
                         Intent intent2 = new Intent(InfoActivity.this, MainActivity.class);
                         startActivity(intent2);
-                        finish();
                         break;
                     case R.id.action_fitness:
                         Intent intent = new Intent(InfoActivity.this, FitnessActivity.class);
                         startActivity(intent);
-                        finish();
                         break;
                     case R.id.action_board:
                         Intent intent3 = new Intent(InfoActivity.this, BoardActivity.class);
                         startActivity(intent3);
-                        finish();
                         break;
                     case R.id.action_info:
                         break;
