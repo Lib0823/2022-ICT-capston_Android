@@ -2,6 +2,8 @@ package com.example.project2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,7 +39,7 @@ public class BoardActivity extends AppCompatActivity {
     private List<String> data;
     private ArrayAdapter<String> adapter;
     private BottomNavigationView bottomNavi, boardNavi;
-    private Button contentBtn;
+    private Button contentBtn, btn_write;
     private ImageButton searchBtn;
     private TextView contentText, searchText, boardTitle;
     private String id, contentId, content, field = "free", search;
@@ -46,10 +48,16 @@ public class BoardActivity extends AppCompatActivity {
     final static String[] name1 = {"회원"};
     private static String na = "";
 
+    private ArrayList<BoardInfo> arrayList;
+
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
     private FirebaseDatabase mFirebaseDB = FirebaseDatabase.getInstance();
     private DatabaseReference mDatabaseRef = mFirebaseDB.getInstance().getReference();
+    private DatabaseReference mDatabaseRef1;
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter1;
+    private RecyclerView.LayoutManager layoutManager;
 
     int version = 1;
     //DatabaseOpenHelper helperBoard, helperUser;
@@ -74,8 +82,36 @@ public class BoardActivity extends AppCompatActivity {
         cursor.moveToNext();   // 첫번째에서 다음 레코드가 없을때까지 읽음
        id = cursor.getString(0); */
 
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        arrayList = new ArrayList<>(); // 객체에 정보담을 배열
+        mDatabaseRef1 = mFirebaseDB.getInstance().getReference().child("board").child(field);
+        mDatabaseRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // 파이어베이스 데이터베이스 데이터를 받아오는 곳
+                arrayList.clear();
+                for(DataSnapshot ss : snapshot.getChildren()){
+                    BoardInfo boardInfo1 = ss.getValue(BoardInfo.class);
+                    arrayList.add(boardInfo1);
+                }
+                adapter1.notifyDataSetChanged(); // 리스트에 저장 및 새로고침
+            }
+
+            // DB 에러처리
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("DB에러입니당!~", "bbbbbb");
+            }
+        });
+
+        adapter1 = new CustomAdapter(arrayList, this);
+        recyclerView.setAdapter(adapter1);
+
         // 리스트 생성
-        list = findViewById(R.id.list);
+        /*list = findViewById(R.id.list);
         data = new ArrayList<>();
         adapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_list_item_1, data);
@@ -83,12 +119,12 @@ public class BoardActivity extends AppCompatActivity {
         list.setSelection(adapter.getCount() - 1);
 
         adapter.notifyDataSetChanged();
-        list.setSelection(adapter.getCount() - 1);
+        list.setSelection(adapter.getCount() - 1);*/
 
         boardTitle = findViewById(R.id.boardTitle);
 
         field = "free";
-        read(field);
+        //read(field);
         boardTitle.setText("자유 게시판");
 
         // Field변경 시 저장
@@ -123,7 +159,16 @@ public class BoardActivity extends AppCompatActivity {
             }
         });
 
-        contentText = findViewById(R.id.contentText);
+
+        btn_write = findViewById(R.id.btn_write);
+        btn_write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BoardActivity.this, BoardAddActivity.class);
+                startActivity(intent);
+            }
+        });
+        /*contentText = findViewById(R.id.contentText);
         contentText.requestFocus();
 
         //등록버튼 클릭 시
@@ -145,7 +190,7 @@ public class BoardActivity extends AppCompatActivity {
                 Toast.makeText(BoardActivity.this, "내용이 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 read(field);
             }
-        });
+        });*/
 
         searchBtn = findViewById(R.id.searchBtn);
         searchText = findViewById(R.id.searchText);
@@ -219,8 +264,31 @@ public class BoardActivity extends AppCompatActivity {
     }
     // 게시판분류를 찾는 메서드 (게시판 분류)
     private void read(String division) {
+        arrayList = new ArrayList<>(); // 객체에 정보담을 배열
+        mDatabaseRef1 = mFirebaseDB.getInstance().getReference().child("board").child(field);
+        mDatabaseRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // 파이어베이스 데이터베이스 데이터를 받아오는 곳
+                arrayList.clear();
+                for(DataSnapshot ss : snapshot.getChildren()){
+                    BoardInfo boardInfo1 = ss.getValue(BoardInfo.class);
+                    arrayList.add(boardInfo1);
+                }
+                adapter1.notifyDataSetChanged(); // 리스트에 저장 및 새로고침
+            }
 
-        //데이터 읽기
+            // DB 에러처리
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("DB에러입니당!~", "bbbbbb");
+            }
+        });
+
+        adapter1 = new CustomAdapter(arrayList, this);
+        recyclerView.setAdapter(adapter1);
+
+        /*//데이터 읽기
         mDatabaseRef.child("board").child(division).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -243,7 +311,7 @@ public class BoardActivity extends AppCompatActivity {
                 data.clear();
                 boardTitle.setText("게시글을 불러올 수가 없습니다.");
             }
-        });
+        });*/
     }
     // 찐 이름 가져오는 메소드
     private String readName() {
