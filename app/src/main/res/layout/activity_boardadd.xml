@@ -25,12 +25,14 @@
         android:elevation="20dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:elevation="20dp">
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="제목"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -40,7 +42,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="1">
+                android:background="@drawable/border1"
+                android:layout_weight="1"
+                android:padding="5dp">
             </EditText>
         </LinearLayout>
 
@@ -99,6 +103,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:hint="내용을 입력해주세요."
+                android:background="@drawable/border1"
+                android:padding="5dp"
                 android:gravity="top"/>
         </LinearLayout>
 
