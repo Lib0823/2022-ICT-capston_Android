@@ -22,6 +22,7 @@
         android:layout_marginRight="30dp"
         android:paddingTop="10dp"
         android:paddingRight="20dp"
+        android:paddingLeft="5dp"
         android:background="@drawable/radius_progress"
         android:orientation="vertical">
         <TextView
@@ -36,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="기초"
+            android:paddingLeft="5dp"
             android:textSize="7pt"/>
         <ProgressBar
             android:id="@+id/basicBar"
@@ -52,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="권장"
+            android:paddingLeft="5dp"
             android:textSize="7pt"/>
         <ProgressBar
             android:id="@+id/recomBar"
@@ -87,30 +90,45 @@
                 android:orientation="horizontal">
                 <ImageButton
                     android:id="@+id/bf1"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bf1"/>
                 <ImageButton
                     android:id="@+id/bf2"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bf2"/>
                 <ImageButton
                     android:id="@+id/bf3"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bf3"/>
                 <ImageButton
                     android:id="@+id/bf4"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bf4"/>
                 <ImageButton
                     android:id="@+id/bf5"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
@@ -133,30 +151,45 @@
                 android:orientation="horizontal">
                 <ImageButton
                     android:id="@+id/bs1"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bs1"/>
                 <ImageButton
                     android:id="@+id/bs2"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bs2"/>
                 <ImageButton
                     android:id="@+id/bs3"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bs3"/>
                 <ImageButton
                     android:id="@+id/bs4"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bs4"/>
                 <ImageButton
                     android:id="@+id/bs5"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
@@ -179,30 +212,45 @@
                 android:orientation="horizontal">
                 <ImageButton
                     android:id="@+id/bb1"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bb1"/>
                 <ImageButton
                     android:id="@+id/bb2"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bb2"/>
                 <ImageButton
                     android:id="@+id/bb3"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bb3"/>
                 <ImageButton
                     android:id="@+id/bb4"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/bb4"/>
                 <ImageButton
                     android:id="@+id/bb5"
+                    android:background="@color/bg_white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
