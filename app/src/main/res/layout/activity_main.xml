@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/radius_bottom"
+            android:background="@drawable/radius_background_botton_double1"
             android:paddingTop="10dp">
 
             <TextView
