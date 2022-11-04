@@ -5,7 +5,6 @@ public class BoardInfo {
     private String content;
     private String title;
     private String date;
-    private int views;
 
     // 생성자 삭제하면 안됌!
     public BoardInfo() {}
@@ -45,13 +44,5 @@ public class BoardInfo {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public int getViews() {
-        return views;
-    }
-
-    public void setViews(int views) {
-        this.views = views;
     }
 }

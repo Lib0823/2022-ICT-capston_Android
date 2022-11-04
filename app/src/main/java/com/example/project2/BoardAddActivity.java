@@ -1,9 +1,13 @@
 package com.example.project2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,17 +26,18 @@ import java.util.Date;
 public class BoardAddActivity extends AppCompatActivity {
     private TextView tv_date, tv_name;
     private EditText et_content, et_title;
+    private Button btn_add;
 
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
     private FirebaseDatabase mFirebaseDB = FirebaseDatabase.getInstance();
     private DatabaseReference mDatabaseRef = mFirebaseDB.getInstance().getReference();
-    private DatabaseReference mDatabaseRef1;
+    private DatabaseReference mDatabaseRef1 = FirebaseDatabase.getInstance().getReference();      // 파이어베이스 DB에 저장시킬 상위 주소위치
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boardAdd);
+        setContentView(R.layout.activity_boardadd);
 
         et_title = findViewById(R.id.et_title);
         tv_date = findViewById(R.id.tv_date);
@@ -50,6 +55,31 @@ public class BoardAddActivity extends AppCompatActivity {
 
         // 회원가입 액티비티 처럼 데이터 삽입만 하면 끝남.
         // 수정은 못 할 것 같은데 시발...
+
+
+
+        btn_add = findViewById(R.id.btn_add);
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 지금 술 취한 상태로 코드 짜는 내용.(2022-11-04 / 오후 10:30)
+                BoardInfo boardInfo = new BoardInfo();
+                String title = et_title.getText().toString();
+                String date = date2;
+                String name = tv_name.getText().toString();
+                String content = et_content.getText().toString();
+                String field = getIntent().getStringExtra("field");
+
+                boardInfo.setTitle(title);
+                boardInfo.setDate(date);
+                boardInfo.setName(name);
+                boardInfo.setContent(content);
+                mDatabaseRef1.child("board").child(field).push().setValue(boardInfo);
+                Toast toast = Toast.makeText(BoardAddActivity.this, "게시물 저장이 완료되었습니다.", Toast.LENGTH_SHORT);
+                toast.show();
+                finish();
+            }
+        });
 
     }
 
