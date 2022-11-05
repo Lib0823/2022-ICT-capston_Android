@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,8 +41,13 @@ public class LoginActivity extends AppCompatActivity {
     TextView btnJoin;
     TextView btnFindPw;
 
-    //String sql;
-    //Cursor cursor;
+    // SQLite
+    int version = 1;
+    DatabaseOpenHelper helper;
+    SQLiteDatabase database;
+
+    String sql;
+    Cursor cursor;
 
     private DatabaseReference mDatabaseReference;   // 파이어베이스 실시간 DB
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
@@ -56,6 +63,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        //DataBase연결부분
+        helper = new DatabaseOpenHelper(LoginActivity.this, DatabaseOpenHelper.tableRun, null, version);
+        database = helper.getWritableDatabase();
 
 
         idEditText = (EditText) findViewById(R.id.idEditText);
@@ -84,11 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             // 로그인 성공 시.
-                            //인텐트 생성 및 호출
-                            //String inputId = idEditText.getText().toString();
 
                             // DB저장 날짜 가져오기
-                            dateRead(); // date1
+                            dateRead(); // date3
 
                             // 현재 날짜 가져오기
                             long now = System.currentTimeMillis();
@@ -96,13 +105,17 @@ public class LoginActivity extends AppCompatActivity {
                             SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
                             String date2 = sdf.format(date);
 
-                            if(date3 != date2){
+                            if(date3 != date2){ // 저장되있던 날짜와 현재 날짜가 다르다면 실행
                                 Map<String, Object> taskMap1 = new HashMap<String, Object>();
                                 taskMap1.put("date", date2);
                                 Map<String, Object> taskMap2 = new HashMap<String, Object>();
                                 taskMap2.put("run", 0);
                                 mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap1);
                                 mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap2);
+
+                                //Run값 저장
+                                int point = 0;
+                                helper.insertRun(database, date2, id, point);
                             }
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             //.putExtra("text", inputId);
