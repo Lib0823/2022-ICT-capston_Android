@@ -90,11 +90,12 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     private TextView distance, kcal;
     private double countKcal=0.0;
     private int result = 0;
+    private String r1 = "현재 날씨는 맑은 상태입니다.";
 
     // 날씨
     private double longitude = 37.4481;    // 인하공전 경도
     private double latitude = 126.6585;    // 인하공전 위도
-    private String weatherResult = "";     // 날씨정보
+    private static String weatherResult = "";     // 날씨정보
     private ImageView ivWeather;
     private TextView tvTemperatures, tvWeather;
     private String baseDate;                                    // 조회하고 싶은 날짜
@@ -175,6 +176,18 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
 
         Glide.with(this).load(R.mipmap.sun).into(ivWeather);
 
+        new Thread(() -> {
+            try {
+                weatherResult = lookUpWeather(longitude, latitude);
+                Log.d("날씨정보",weatherResult);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         // 날씨
         int beginIndex = weatherResult.lastIndexOf(",") + 1;
         int endIndex = weatherResult.length();
@@ -185,31 +198,24 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             String weather = weatherResult.substring(0, (beginIndex - 1));    // 날씨
             tvTemperatures.setText(temperatures);
             tvWeather.setText(weather);
-            // 날씨에 따라 이미지 변경
-            if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
-                Glide.with(ivWeather).load(R.mipmap.sun).into(ivWeather);
-                ivWeather.setImageResource(R.mipmap.sun);
-            } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
-                Glide.with(ivWeather).load(R.mipmap.rain).into(ivWeather);
-                ivWeather.setImageResource(R.mipmap.rain);
-            } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
-                Glide.with(ivWeather).load(R.mipmap.cloudy).into(ivWeather);
-                ivWeather.setImageResource(R.mipmap.cloudy);
-            } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
-                Glide.with(ivWeather).load(R.mipmap.clouds).into(ivWeather);
-                ivWeather.setImageResource(R.mipmap.clouds);
+            if(!r1.equals(weather)) {
+                // 날씨에 따라 이미지 변경
+                if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
+                    Glide.with(ivWeather).load(R.mipmap.sun).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.sun);
+                } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
+                    Glide.with(ivWeather).load(R.mipmap.rain).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.rain);
+                } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
+                    Glide.with(ivWeather).load(R.mipmap.cloudy).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.cloudy);
+                } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
+                    Glide.with(ivWeather).load(R.mipmap.clouds).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.clouds);
+                }
             }
         }
 
-        new Thread(() -> {
-            try {
-                weatherResult = lookUpWeather(longitude, latitude);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }).start();
         // 여기까지 날씨 구하기
         
         kcal = findViewById(R.id.kcal);
@@ -415,6 +421,34 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             distance.setText((String.format("%.2f", total)+"km"));    // km단위로 거리 출력
         }
         count++;
+
+        // 날씨
+        int beginIndex = weatherResult.lastIndexOf(",") + 1;
+        int endIndex = weatherResult.length();
+        // 혹시 모를 에러 처리하기!!
+        if (beginIndex != 0) {
+            Log.d("정보", String.valueOf(beginIndex));
+            String temperatures = weatherResult.substring(beginIndex, endIndex);    // 기온
+            String weather = weatherResult.substring(0, (beginIndex - 1));    // 날씨
+            tvTemperatures.setText(temperatures);
+            tvWeather.setText(weather);
+            if(!r1.equals(weather)) {
+                // 날씨에 따라 이미지 변경
+                if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
+                    Glide.with(RunActivity.this).load(R.mipmap.sun).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.sun);
+                } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
+                    Glide.with(RunActivity.this).load(R.mipmap.rain).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.rain);
+                } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
+                    Glide.with(RunActivity.this).load(R.mipmap.cloudy).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.cloudy);
+                } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
+                    Glide.with(RunActivity.this).load(R.mipmap.clouds).into(ivWeather);
+                    ivWeather.setImageResource(R.mipmap.clouds);
+                }
+            }
+        }
 
     }
 
