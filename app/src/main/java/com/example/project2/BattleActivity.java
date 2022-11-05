@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -194,7 +196,7 @@ public class BattleActivity extends AppCompatActivity {
                                                 mDatabaseRef.child("battle").child(opUserToken[0]).setValue(battleInfo1);
 
                                                 Map<String, Object> taskMap2 = new HashMap<String, Object>();
-                                                taskMap1.put("run", 1);
+                                                taskMap2.put("run", 1);
                                                 mDatabaseRef.child("project").child(opUserToken[0]).updateChildren(taskMap2);
                                                 Toast toast1 = Toast.makeText(BattleActivity.this, "대결이 시작되었습니다.", Toast.LENGTH_LONG);
                                                 toast1.show();
@@ -307,6 +309,11 @@ public class BattleActivity extends AppCompatActivity {
                                     else {
                                         point[0] = pointInfos[0].getPoint();
                                         Log.d("그래프1 - " + finalI, String.valueOf(point[0]));
+
+                                        // 그래프!X -> 프로그레스
+                                        ProgressBar myPoint = findViewById(R.id.myPointBar);
+                                        myPoint.setProgress(point[0]);
+
                                     }
                                 }
                             });
@@ -341,6 +348,10 @@ public class BattleActivity extends AppCompatActivity {
                                     else {
                                         point[0] = pointInfos[0].getPoint();
                                         Log.d("그래프2 - " + finalI, String.valueOf(point[0]));
+
+                                        // 그래프!X -> 프로그레스
+                                        ProgressBar opPoint = findViewById(R.id.opPointBar);
+                                        opPoint.setProgress(point[0]);
                                     }
                                 }
                             });
