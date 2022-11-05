@@ -2,6 +2,7 @@ package com.example.project2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,7 @@ public class BoardUpdateActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef = mFirebaseDB.getInstance().getReference();
     private DatabaseReference mDatabaseRef1 = FirebaseDatabase.getInstance().getReference();      // 파이어베이스 DB에 저장시킬 상위 주소위치
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
+    private ArrayList<BoardInfo> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class BoardUpdateActivity extends AppCompatActivity {
         String date = intent.getExtras().getString("date");
         String idToken = intent.getExtras().getString("idToken");
         String field = intent.getExtras().getString("field");
+        int itemList = intent.getExtras().getInt("itemList");
 
         tv_name.setText(name);
         tv_date.setText(date);
@@ -61,6 +65,27 @@ public class BoardUpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String title = String.valueOf(et_title.getText());
                 String content = String.valueOf(et_content.getText());
+                ///
+
+                arrayList = new ArrayList<>(); // 객체에 정보담을 배열
+                mDatabaseRef1 = mFirebaseDB.getInstance().getReference().child("board").child(field).getRef();
+                mDatabaseRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // 파이어베이스 데이터베이스 데이터를 받아오는 곳
+                        for(DataSnapshot ss : snapshot.getChildren()){
+                            BoardInfo boardInfo1 = ss.getValue(BoardInfo.class);
+                            arrayList.add(boardInfo1);
+                        }
+                    }
+                    // DB 에러처리
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("DB에러입니당!~", "bbbbbb");
+                    }
+                });
+
+                ///
                 Map<String, Object> taskMap1 = new HashMap<String, Object>();
                 taskMap1.put("title", title);
                 mDatabaseRef.child("board").child(field).getParent().updateChildren(taskMap1);

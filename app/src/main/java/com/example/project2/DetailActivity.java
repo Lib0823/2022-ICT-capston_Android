@@ -34,13 +34,14 @@ public class DetailActivity extends AppCompatActivity {
         String date = intent.getExtras().getString("date");
         String idToken = intent.getExtras().getString("idToken");
         String field = intent.getExtras().getString("field");
+        int itemList = intent.getExtras().getInt("itemList");
 
         tv_name.setText(name);
         tv_content.setText(content);
         tv_title.setText(title);
         tv_date.setText(date);
 
-        if(idToken.equals(firebaseUser.getUid())) {
+        /*(if(idToken.equals(firebaseUser.getUid())) {
             btn_update.setVisibility(View.VISIBLE);
             btn_update.setEnabled(true);
             btn_update.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +54,7 @@ public class DetailActivity extends AppCompatActivity {
                     intent.putExtra("title", title);
                     intent.putExtra("date", date);
                     intent.putExtra("field", field);
+                    intent.putExtra("itemList", itemList);
                     startActivity(intent);
                     finish();
                 }
@@ -60,6 +62,6 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             btn_update.setVisibility(View.GONE);
             btn_update.setEnabled(false);
-        }
+        }*/
     }
 }

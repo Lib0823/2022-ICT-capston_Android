@@ -54,8 +54,6 @@ public class BoardAddActivity extends AppCompatActivity {
         // 회원가입 액티비티 처럼 데이터 삽입만 하면 끝남.
         // 수정은 못 할 것 같은데 시발...
 
-
-
         btn_add = findViewById(R.id.btn_update);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override

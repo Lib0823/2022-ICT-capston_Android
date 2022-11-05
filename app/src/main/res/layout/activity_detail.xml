@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                android:text="수정하기"></Button>
+                android:text="삭제하기"></Button>
 
 
     </LinearLayout>
