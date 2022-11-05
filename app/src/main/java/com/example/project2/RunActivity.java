@@ -94,6 +94,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     private int result = 0;
     private String r1 = "현재 날씨는 맑은 상태입니다.";
     private String idemail;
+    private Integer point;
 
 
     // 날씨
@@ -111,7 +112,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     Sensor stepCountSensor;
     TextView stepCount;
     Button resetButton;
-    int currentSteps = 0;
+    static int currentSteps = 0;
 
     // SQLite
     int version = 1;
@@ -122,7 +123,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     Cursor cursor;
 
     private int m; // 시간(분)
-    private int point; // 대결 점수 (만보기 X 거리)
 
     double[] lon = new double[1000];
     double[] lat = new double[1000];
@@ -147,25 +147,58 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
 
     @Override
     public void onBackPressed() { // back키 이벤트
-
-        int sum = run + m;
-        Map<String, Object> taskMap1 = new HashMap<String, Object>();
-        taskMap1.put("run", sum);
-        mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap1);
+        final PointInfo[] pointInfos = {new PointInfo()};
 
         // 현재 날짜 가져오기
         long now = System.currentTimeMillis();
-        Date date1 = new Date(now);
+        Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
-        date = sdf.format(date1);
+        String date2 = sdf.format(date);
 
-        Map<String, Object> taskMap2 = new HashMap<String, Object>();
-        taskMap2.put("date", date);
-        mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap2);
+        Log.d("stepCount 정보", stepCount.getText().toString());
+        int c = Integer.parseInt(stepCount.getText().toString());
+        //데이터 읽기
+        mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date2).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                point = 0;
+            }
 
-        // SQlite 런값 업데이트
-        point = (currentSteps * Integer.parseInt(String.valueOf(distance)));
-        database.execSQL("UPDATE Run SET run="+point+" WHERE id='"+idemail+"'");
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pointInfos[0] = snapshot.getValue(PointInfo.class);
+                if (pointInfos[0] == null || pointInfos[0].equals(null))
+                    point = 0;
+                else {
+                    point = pointInfos[0].getPoint();
+                    if(point==null){
+                        point = 0;
+                    }
+
+                    int to = (int) total; // 총 거리
+                    if(to==0) {
+                        to=1;
+                    }
+                    Log.d("c 정보", String.valueOf(c));
+                    int sumpoint = c * to;
+                    Log.d("sumpoint의 정보", String.valueOf(sumpoint));
+                    int resultpoint = point + sumpoint;
+                    Log.d("resultpoint의 정보", String.valueOf(resultpoint));
+
+                    Map<String, Object> taskMap2 = new HashMap<String, Object>();
+                    taskMap2.put("point", resultpoint);
+                    mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date2).updateChildren(taskMap2);
+                    Log.d("이이이이름", String.valueOf(point));
+                }
+            }
+        });
+
+//        // SQlite 런값 업데이트
+        //Log.d("여기여기!", String.valueOf(distance));
+       // point = (currentSteps * Integer.parseInt(String.valueOf(distance)));
+//        database.execSQL("UPDATE Run SET run="+point+" WHERE id='"+idemail+"'");
+
+        // ***** 파베에서 해당 사용자의 id에 (date, point)값을 계속 갱신해준다.
 
 
         chrono.setBase(SystemClock.elapsedRealtime());
@@ -188,8 +221,8 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         setContentView(R.layout.activity_run);
 
         //DataBase연결부분
-        helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableRun, null, version);
-        database = helper.getWritableDatabase();
+        //helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableRun, null, version);
+        //database = helper.getWritableDatabase();
 
         // 날씨 이미지 뷰
         ivWeather = findViewById(R.id.ivWeather);
@@ -242,7 +275,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         
         kcal = findViewById(R.id.kcal);
 
-        //데이터 읽기
+        /*//데이터 읽기
         mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
@@ -258,7 +291,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
                     run = userInfo[0].getRun();
                 }
             }
-        });
+        });*/
 
         //걸음수
         stepCount = findViewById(R.id.stepCount);
@@ -662,6 +695,39 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             welcome.setText("회원정보를 불러오지 못했습니다.");
         else if (userInfo[0].getDogName().equals(""))
             tvDogName.setText(userInfo[0].getDogName());*/
+    }
+
+    // 찐 이름 가져오는 메소드
+    private void readPoint() {
+        final PointInfo[] pointInfos = {new PointInfo()};
+
+        // 현재 날짜 가져오기
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+        String date2 = sdf.format(date);
+
+        //데이터 읽기
+        mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date2).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                point = 0;
+            }
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pointInfos[0] = snapshot.getValue(PointInfo.class);
+                if (pointInfos[0] == null || pointInfos[0].equals(null))
+                    point = 0;
+                else {
+                   point = pointInfos[0].getPoint();
+                   if(point==null){
+                       point = 0;
+                   }
+                    Log.d("이이이이름", String.valueOf(point));
+                }
+            }
+        });
     }
 
 }
