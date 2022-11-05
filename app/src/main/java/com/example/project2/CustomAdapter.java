@@ -72,9 +72,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                     intent.putExtra("content", itemList.getContent());
                     intent.putExtra("title", itemList.getTitle());
                     intent.putExtra("date", itemList.getDate());
-                    intent.putExtra("itemList", String.valueOf(itemList));
-                    Log.d("위치 확인", String.valueOf(itemList));
-                    Log.d("위치 확인", String.valueOf(curPos));
+                    intent.putExtra("itemList", String.valueOf(curPos));
                     context.startActivity(intent);
                 }
             });
