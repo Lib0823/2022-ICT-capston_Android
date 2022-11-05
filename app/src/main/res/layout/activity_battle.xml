@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -90,13 +90,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@color/bg_white"
             android:visibility="gone" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/bg_white"
                 android:orientation="vertical">
 
                 <TextView
@@ -107,94 +108,128 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/black"
+
                     android:text="대결 현황"/>
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="20dp"
+                android:background="@drawable/radius_back4_gray">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
                     android:text="대결 시작일 : "
                     android:textSize="10pt" />
                 <TextView
                     android:id="@+id/tv_resultStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="15pt"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="대결 마감일 : "
+                    android:layout_marginLeft="20dp"
                     android:textSize="10pt" />
                 <TextView
                     android:id="@+id/tv_resultEnd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="15pt"
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
+            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="자신ID : "
-                    android:textSize="10pt" />
-
-                <TextView
-                    android:id="@+id/tv_myId"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp" />
-            </LinearLayout>
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/tab1_chart_1"
+                    android:orientation="horizontal"/>
+">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="내 ID : "
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:textSize="10pt" />
+
+                    <TextView
+                        android:id="@+id/tv_myId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10pt"
+                        android:textColor="#23cf28"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/myPointBar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:max="10000" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:orientation="horizontal"/>
+">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:text="상대ID : "
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="상대 ID : "
                     android:textSize="10pt" />
 
                 <TextView
                     android:id="@+id/tv_resultId"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp" />
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="10pt"
+                    android:textColor="#da252f" />
 
+        <ProgressBar
+            android:id="@+id/opPointBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:max="10000" />
             </LinearLayout>
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/tab1_chart_2"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
+<!--            <com.github.mikephil.charting.charts.BarChart-->
+<!--                android:id="@+id/tab1_chart_2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="300dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginRight="20dp"/>-->
+
+
     </LinearLayout>
-</ScrollView>
+
+
+
+
