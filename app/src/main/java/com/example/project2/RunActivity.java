@@ -19,6 +19,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -91,6 +93,8 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     private double countKcal=0.0;
     private int result = 0;
     private String r1 = "현재 날씨는 맑은 상태입니다.";
+    private String idemail;
+
 
     // 날씨
     private double longitude = 37.4481;    // 인하공전 경도
@@ -109,7 +113,16 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     Button resetButton;
     int currentSteps = 0;
 
-    int m; // 시간(분)
+    // SQLite
+    int version = 1;
+    DatabaseOpenHelper helper;
+    SQLiteDatabase database;
+
+    String sql;
+    Cursor cursor;
+
+    private int m; // 시간(분)
+    private int point; // 대결 점수 (만보기 X 거리)
 
     double[] lon = new double[1000];
     double[] lat = new double[1000];
@@ -150,6 +163,11 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         taskMap2.put("date", date);
         mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap2);
 
+        // SQlite 런값 업데이트
+        point = (currentSteps * Integer.parseInt(String.valueOf(distance)));
+        database.execSQL("UPDATE Run SET run="+point+" WHERE id='"+idemail+"'");
+
+
         chrono.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
         chrono.stop();
@@ -168,6 +186,10 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
+
+        //DataBase연결부분
+        helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableRun, null, version);
+        database = helper.getWritableDatabase();
 
         // 날씨 이미지 뷰
         ivWeather = findViewById(R.id.ivWeather);
@@ -615,6 +637,31 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
         }
         Log.i("리턴!!", weatherResult);
         return weatherResult;
+    }
+
+    private void read() {
+
+        final UserAccount[] userInfo = {new UserAccount()};
+        //데이터 읽기
+        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                idemail = "회원정보에러";
+            }
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userInfo[0] = snapshot.getValue(UserAccount.class);
+                if(userInfo[0] == null || userInfo[0].getId() == null || userInfo[0].getId().length() == 0 || userInfo[0].equals(null))
+                    idemail = "회원정보에러";
+                else
+                    idemail = userInfo[0].getId();
+            }
+        });
+        /*if(userInfo[0].getName() == null || userInfo[0].getName().length() == 0)
+            welcome.setText("회원정보를 불러오지 못했습니다.");
+        else if (userInfo[0].getDogName().equals(""))
+            tvDogName.setText(userInfo[0].getDogName());*/
     }
 
 }
