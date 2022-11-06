@@ -104,17 +104,105 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             // 로그인 성공 시.
 
-                            // DB저장 날짜 가져오기
-                            dateRead(); // date3
+                            final UserAccount[] userInfo = {new UserAccount()};
+                            //데이터 읽기
+                            mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    userInfo[0] = snapshot.getValue(UserAccount.class);
+                                    if(userInfo[0] == null || userInfo[0].getDate() == null || userInfo[0].getDate().length() == 0 || userInfo[0].equals(null))
+                                        date3 = "날짜 에러";
+                                    else {
+                                        date3 = userInfo[0].getDate();
+                                        // 현재 날짜 가져오기
+                                        long now = System.currentTimeMillis();
+                                        Date date = new Date(now);
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
+                                        String date2 = sdf.format(date);
 
-                            // 현재 날짜 가져오기
-                            long now = System.currentTimeMillis();
-                            Date date = new Date(now);
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
-                            String date2 = sdf.format(date);
+                                        SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
+                                        int dayday = Integer.parseInt(sdfDay.format(date));
 
-                            SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
-                            int dayday = Integer.parseInt(sdfDay.format(date));
+                                        final UserAccount[] userInfo = {new UserAccount()};
+                                        //데이터 읽기
+                                        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                                                run = 0;
+                                            }
+
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                userInfo[0] = snapshot.getValue(UserAccount.class);
+                                                if(userInfo[0] == null || userInfo[0].equals(null))
+                                                    run = 0;
+                                                else {
+                                                    run = userInfo[0].getRun();
+                                                    if(run == 1) {
+                                                        //데이터 읽기
+                                                        mDatabaseRef.child("battle").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                // 매치일 비교 후 런값 변경
+                                                                BattleInfo battleInfos1 = snapshot.getValue(BattleInfo.class);
+                                                                if (battleInfos1 == null || battleInfos1.equals(null))
+                                                                    comDate = "날짜 에러";
+                                                                else {
+                                                                    comDate = battleInfos1.getMatchDay();
+                                                                    int compare = comDate.compareTo(date2);
+                                                                    // "today가 date보다 큽니다.(date < today)"
+                                                                    if (compare < 0) {
+                                                                        Map<String, Object> taskMap = new HashMap<String, Object>();
+                                                                        taskMap.put("run", 0);
+                                                                        mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap);
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                                                                comDate = "날짜 에러";
+                                                            }
+                                                        });
+                                                    }
+                                                    Log.d("date2", date2);
+                                                    Log.d("date3", date3);
+                                                    if(!date3.equals(date2)){ // 저장되있던 날짜와 현재 날짜가 다르다면 실행
+                                                        Map<String, Object> taskMap1 = new HashMap<String, Object>();
+                                                        taskMap1.put("date", date2);
+
+                                                        mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap1);
+
+
+                                                        PointInfo pointInfo = new PointInfo();
+                                                        int p = 0;
+                                                        pointInfo.setPoint(p);
+
+                                                        // setValue : DB 하위주소(UserAccount)에 정보를 삽입함. (2022-10-21 이수)
+                                                        mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date2).setValue(pointInfo);
+
+//                                //Run값 저장
+//                                int point = 0;
+//                                helper.insertRun(database, date2, id, point);
+                                                    }
+                                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                                    //.putExtra("text", inputId);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                                    date3 = "날짜 에러";
+                                }
+
+                            });
 
                             //String resultDay = startDay.substring(8);    // 기온
                             //Log.d("제발", resultDay);
@@ -144,75 +232,7 @@ public class LoginActivity extends AppCompatActivity {
 //                            }
 //                            idread();
 //                            battleread();
-                            final UserAccount[] userInfo = {new UserAccount()};
-                            //데이터 읽기
-                            mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                                    run = 0;
-                                }
 
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    userInfo[0] = snapshot.getValue(UserAccount.class);
-                                    if(userInfo[0] == null || userInfo[0].equals(null))
-                                        run = 0;
-                                    else {
-                                        run = userInfo[0].getRun();
-                                        if(run == 1) {
-                                            //데이터 읽기
-                                            mDatabaseRef.child("battle").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    // 매치일 비교 후 런값 변경
-                                                    BattleInfo battleInfos1 = snapshot.getValue(BattleInfo.class);
-                                                    if (battleInfos1 == null || battleInfos1.equals(null))
-                                                        comDate = "날짜 에러";
-                                                    else {
-                                                        comDate = battleInfos1.getMatchDay();
-                                                        int compare = comDate.compareTo(date2);
-                                                        // "today가 date보다 큽니다.(date < today)"
-                                                        if (compare < 0) {
-                                                            Map<String, Object> taskMap = new HashMap<String, Object>();
-                                                            taskMap.put("run", 0);
-                                                            mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap);
-                                                        }
-                                                    }
-
-                                                }
-
-                                                @Override
-                                                public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                                                    comDate = "날짜 에러";
-                                                }
-                                            });
-                                        }
-                                    }
-                                }
-                            });
-
-                            if(date3 != date2){ // 저장되있던 날짜와 현재 날짜가 다르다면 실행
-                                Map<String, Object> taskMap1 = new HashMap<String, Object>();
-                                taskMap1.put("date", date2);
-
-                                mDatabaseRef.child("project").child(firebaseUser.getUid()).updateChildren(taskMap1);
-
-
-                                PointInfo pointInfo = new PointInfo();
-                                int p = 0;
-                                pointInfo.setPoint(p);
-
-                                // setValue : DB 하위주소(UserAccount)에 정보를 삽입함. (2022-10-21 이수)
-                                mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date2).setValue(pointInfo);
-
-//                                //Run값 저장
-//                                int point = 0;
-//                                helper.insertRun(database, date2, id, point);
-                            }
-                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                            //.putExtra("text", inputId);
-                            startActivity(intent);
-                            finish();
                         } else {
                             Toast toast = Toast.makeText(LoginActivity.this, "로그인에 실패하였습니다. 정보를 확인해주세요.", Toast.LENGTH_SHORT);
                             toast.show();

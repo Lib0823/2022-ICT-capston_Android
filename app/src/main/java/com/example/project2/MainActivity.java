@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,14 +79,17 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_fitness:
                         Intent intent = new Intent(MainActivity.this, FitnessActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case R.id.action_board:
                         Intent intent2 = new Intent(MainActivity.this, BoardActivity.class);
                         startActivity(intent2);
+                        finish();
                         break;
                     case R.id.action_info:
                         Intent intent3 = new Intent(MainActivity.this, InfoActivity.class);
                         startActivity(intent3);
+                        finish();
                         break;
                 }
                 return true;
@@ -132,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
         cursor.moveToNext();
         int run = Integer.parseInt(cursor.getString(7));*/
 
-        ProgressBar progress = (ProgressBar) findViewById(R.id.progress) ;
-        progress.setProgress(run1) ;
+        //ProgressBar progress = (ProgressBar) findViewById(R.id.progress) ;
+        //progress.setProgress(run1) ;
     }
 
     private class CheckTypesTask extends AsyncTask<Void, Void, Void> {
