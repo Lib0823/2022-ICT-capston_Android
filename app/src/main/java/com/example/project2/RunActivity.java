@@ -21,8 +21,6 @@ import android.content.pm.PackageManager;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -37,10 +35,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +48,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.skt.Tmap.TMapGpsManager;
-import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
@@ -92,7 +87,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     private TextView distance, kcal;
     private double countKcal=0.0;
     private int result = 0;
-    private String r1 = "현재 날씨는 맑은 상태입니다.";
+    public static String weather121313 = "현재 날씨는 맑은 상태입니다.";
     private String idemail;
     private Integer point;
 
@@ -253,20 +248,26 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             String weather = weatherResult.substring(0, (beginIndex - 1));    // 날씨
             tvTemperatures.setText(temperatures);
             tvWeather.setText(weather);
-            if(!r1.equals(weather)) {
+            Log.d("r1의 정보", weather121313);
+            Log.d("weather의 정보", weather);
+            if(!weather121313.equals(weather)) {
                 // 날씨에 따라 이미지 변경
                 if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
                     Glide.with(ivWeather).load(R.mipmap.sun).into(ivWeather);
+                    weather121313 = "현재 날씨는 맑은 상태입니다.";
                     ivWeather.setImageResource(R.mipmap.sun);
                 } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
                     Glide.with(ivWeather).load(R.mipmap.rain).into(ivWeather);
                     ivWeather.setImageResource(R.mipmap.rain);
+                    weather121313 = "현재 날씨는 비가 오는 상태입니다.";
                 } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
                     Glide.with(ivWeather).load(R.mipmap.cloudy).into(ivWeather);
                     ivWeather.setImageResource(R.mipmap.cloudy);
+                    weather121313 = "현재 날씨는 구름이 많은 상태입니다.";
                 } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
                     Glide.with(ivWeather).load(R.mipmap.clouds).into(ivWeather);
                     ivWeather.setImageResource(R.mipmap.clouds);
+                    weather121313 = "현재 날씨는 흐린 상태입니다.";
                 }
             }
         }
@@ -487,20 +488,26 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             String weather = weatherResult.substring(0, (beginIndex - 1));    // 날씨
             tvTemperatures.setText(temperatures);
             tvWeather.setText(weather);
-            if(!r1.equals(weather)) {
+            Log.d("r1의 정보", weather121313);
+            Log.d("weather의 정보", weather);
+            if(!weather121313.equals(weather)) {
                 // 날씨에 따라 이미지 변경
                 if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
                     Glide.with(RunActivity.this).load(R.mipmap.sun).into(ivWeather);
                     ivWeather.setImageResource(R.mipmap.sun);
+                    weather121313 = "현재 날씨는 맑은 상태입니다.";
                 } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
                     Glide.with(RunActivity.this).load(R.mipmap.rain).into(ivWeather);
                     ivWeather.setImageResource(R.mipmap.rain);
+                    weather121313 = "현재 날씨는 비가 오는 상태입니다.";
                 } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
                     Glide.with(RunActivity.this).load(R.mipmap.cloudy).into(ivWeather);
                     ivWeather.setImageResource(R.mipmap.cloudy);
+                    weather121313 = "현재 날씨는 구름이 많은 상태입니다.";
                 } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
                     Glide.with(RunActivity.this).load(R.mipmap.clouds).into(ivWeather);
                     ivWeather.setImageResource(R.mipmap.clouds);
+                    weather121313 = "현재 날씨는 흐린 상태입니다.";
                 }
             }
         }

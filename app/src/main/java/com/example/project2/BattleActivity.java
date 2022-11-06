@@ -270,7 +270,7 @@ public class BattleActivity extends AppCompatActivity {
                     // 밀리세컨드 단위로 차이 결과 도출
                     long resultTime;
                     int resultDay;
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+                    SimpleDateFormat format = new SimpleDateFormat("yyy-mm-dd");
                     Date startDate = null;
                     Log.d("여기도 좀 지나가줘 ㅠㅠ", "");
                     try {
@@ -279,19 +279,23 @@ public class BattleActivity extends AppCompatActivity {
                         resultTime = endDate.getTime() - startDate.getTime();
                         resultDay = (int) (resultTime / (24 * 60 * 60 * 1000));
                         Log.d("여기도 좀 지나가줘1222222 ㅠㅠ", String.valueOf(resultDay));
+                        int sumpoint = 0;
                         // 내점수
-                        for(int i = 0; i < resultDay; i++) {
+                        for(int i = 0; i <= resultDay; i++) {
                             Log.d("여기도 좀 지나가줘3333333 ㅠㅠ", String.valueOf(resultDay));
                             final PointInfo[] pointInfos = {new PointInfo()};
                             final int[] point = {0};
-                            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat fm = new SimpleDateFormat("yyy-mm-dd");
 
                             Calendar cal = Calendar.getInstance();	 //날짜 계산을 위해 Calendar 추상클래스 선언 getInstance()메소드 사용
                             cal.setTime(startDate);
                             cal.add(Calendar.DATE, i);
+                            Log.d("시작일정", String.valueOf(startDate));
                             String date = fm.format(cal.getTime());
                             //데이터 읽기
                             int finalI = i;
+                            Log.d("토큰1",firebaseUser.getUid());
+                            Log.d("일정1",date);
                             mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
@@ -307,9 +311,8 @@ public class BattleActivity extends AppCompatActivity {
                                         Log.d("여기도2", "");
                                     }
                                     else {
-                                        point[0] = pointInfos[0].getPoint();
-                                        Log.d("그래프1 - " + finalI, String.valueOf(point[0]));
-
+                                        point[0] += pointInfos[0].getPoint();
+                                        Log.d("내 점수", String.valueOf(point[0]));
                                         // 그래프!X -> 프로그레스
                                         ProgressBar myPoint = findViewById(R.id.myPointBar);
                                         myPoint.setProgress(point[0]);
@@ -317,13 +320,15 @@ public class BattleActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+
+                            Log.d("그래프1 - " , String.valueOf(sumpoint));
                         }
                         
                         // 상대점수
-                        for(int i = 0; i < resultDay; i++) {
+                        for(int i = 0; i <= resultDay; i++) {
                             final PointInfo[] pointInfos = {new PointInfo()};
                             final int[] point = {0};
-                            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat fm = new SimpleDateFormat("yyyy-mm-dd");
 
                             Calendar cal = Calendar.getInstance();	 //날짜 계산을 위해 Calendar 추상클래스 선언 getInstance()메소드 사용
                             cal.setTime(startDate);
@@ -331,6 +336,8 @@ public class BattleActivity extends AppCompatActivity {
                             String date = fm.format(cal.getTime());
                             //데이터 읽기
                             int finalI = i;
+                            Log.d("토큰2",optoken[0]);
+                            Log.d("일정2",date);
                             mDatabaseRef.child("point").child(optoken[0]).child(date).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
@@ -346,7 +353,7 @@ public class BattleActivity extends AppCompatActivity {
                                         Log.d("여기도22","");
                                     }
                                     else {
-                                        point[0] = pointInfos[0].getPoint();
+                                        point[0] += pointInfos[0].getPoint();
                                         Log.d("그래프2 - " + finalI, String.valueOf(point[0]));
 
                                         // 그래프!X -> 프로그레스
@@ -355,6 +362,7 @@ public class BattleActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+
 
                         }
                         
