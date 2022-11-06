@@ -178,8 +178,8 @@
                             android:id="@+id/tv_myId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="10pt"
-                            android:textColor="#23cf28" />
+                            android:textColor="#000000"
+                            android:textSize="10pt"/>
                         </LinearLayout>
                 </LinearLayout>
 
@@ -189,7 +189,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="20dp"
-                android:max="100" />
+                android:progressTint="#32c929"
+                android:progressBackgroundTint="#a1a0a1"
+                android:max="1000" />
 
 
             <LinearLayout
@@ -212,11 +214,10 @@
 
                     <TextView
                         android:id="@+id/tv_resultId"
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/bg_blue"
                         android:textSize="10pt"
-                        android:textColor="#da252f" />
+                        android:textColor="#000000" />
                 </LinearLayout>
 
         <ProgressBar
@@ -225,7 +226,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:max="100" />
+            android:progressTint="#bc252b"
+            android:progressBackgroundTint="#a1a0a1"
+            android:max="1000" />
             </LinearLayout>
 <!--            <com.github.mikephil.charting.charts.BarChart-->
 <!--                android:id="@+id/tab1_chart_2"-->
