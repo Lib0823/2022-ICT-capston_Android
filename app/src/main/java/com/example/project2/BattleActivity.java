@@ -16,8 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.eazegraph.lib.charts.BarChart;
 
-import com.github.mikephil.charting.charts.BarChart;
+
+//import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -28,6 +30,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.eazegraph.lib.charts.PieChart;
+import org.eazegraph.lib.models.BarModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +53,10 @@ public class BattleActivity extends AppCompatActivity {
     private LinearLayout llBattle, llresultlayout;
     private int run = 0;
 
+    BarChart chart1;
+    BarChart chart2;
+    //private ArrayList<BarEntry> dataList1 = new ArrayList<>();
+    //private ArrayList<BarEntry> dataList2 = new ArrayList<>();
     //ListView list;
     ArrayList data;
     ArrayAdapter adapter;
@@ -62,7 +71,8 @@ public class BattleActivity extends AppCompatActivity {
         final UserAccount[] userInfo = {new UserAccount()};
         llBattle = findViewById(R.id.ll_battlelayout);
         llresultlayout = findViewById(R.id.ll_resultlayout);
-        //데이터 읽기
+
+        // 런값 확인 후, 화면 보여 줌.
         mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
@@ -72,29 +82,30 @@ public class BattleActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userInfo[0] = snapshot.getValue(UserAccount.class);
-                if(userInfo[0] == null ||  userInfo[0].equals(null))
+                if(userInfo[0] == null ||  userInfo[0].equals(null)) {
                     run = 0;
+                    llBattle.setVisibility(View.VISIBLE);
+                    llresultlayout.setVisibility(View.GONE);
+                    Log.d("run 값1 : ", String.valueOf(run));
+                }
                 else {
                     run = userInfo[0].getRun();
+                    Log.d("run 값2 : ", String.valueOf(run));
                     if(run == 1) {
                         llBattle.setVisibility(View.GONE);
                         llresultlayout.setVisibility(View.VISIBLE);
+                        // 대회 진행일이 끝난 경우 run값과 화면 변경하기!
+
+                    } else {
+                        llBattle.setVisibility(View.VISIBLE);
+                        llresultlayout.setVisibility(View.GONE);
                     }
                 }
             }
         });
 
-        // 리스트 생성
-        //list = findViewById(R.id.battleList);
+        // 레이아웃 llBattle
         data = new ArrayList<>();
-        //adapter = new ArrayAdapter<>
-                //(this, android.R.layout.simple_list_item_1, data);
-        //list.setAdapter(adapter);
-        //list.setSelection(adapter.getCount() - 1);
-
-        //data.add("leeSoo님이 대결을 신청하였습니다!");
-        //adapter.notifyDataSetChanged();
-        //list.setSelection(adapter.getCount() - 1);
 
         // Spinner
         Spinner battleSpinner = (Spinner)findViewById(R.id.battleSpinner);
@@ -131,7 +142,9 @@ public class BattleActivity extends AppCompatActivity {
             private ArrayList<UserAccount> arrayList = new ArrayList<>();
             @Override
             public void onClick(View v) {
-                String opponent = battleId.getText().toString();    // 상대방 신청 id
+                String opponent = battleId.getText().toString();    // 상대방 신청 i
+
+                // 입력한 값이 null값이 아니라면 대결상대를 검색함!
                 if(!opponent.equals("")) {
                     mDatabaseRef1 = mFirebaseDB.getInstance().getReference().child("project").getRef();
                     mDatabaseRef1.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -200,8 +213,8 @@ public class BattleActivity extends AppCompatActivity {
                                                 mDatabaseRef.child("project").child(opUserToken[0]).updateChildren(taskMap2);
                                                 Toast toast1 = Toast.makeText(BattleActivity.this, "대결이 시작되었습니다.", Toast.LENGTH_LONG);
                                                 toast1.show();
-                                                llBattle.setVisibility(View.GONE);
-                                                llresultlayout.setVisibility(View.VISIBLE);
+                                                //llBattle.setVisibility(View.GONE);
+                                                //llresultlayout.setVisibility(View.VISIBLE);
                                                 return;
                                             }
                                         }
@@ -240,6 +253,12 @@ public class BattleActivity extends AppCompatActivity {
         TextView tv_resultId = findViewById(R.id.tv_resultId);
         final String[] optoken = new String[1];
         final BattleInfo[] battleInfos = {new BattleInfo()};
+        chart1 = findViewById(R.id.tab1_chart_1);
+        chart2 = findViewById(R.id.tab1_chart_2);
+
+        chart1.clearChart();
+        chart2.clearChart();
+
         //데이터 읽기
         mDatabaseRef.child("battle").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -281,6 +300,7 @@ public class BattleActivity extends AppCompatActivity {
                         Log.d("여기도 좀 지나가줘1222222 ㅠㅠ", String.valueOf(resultDay));
                         int sumpoint = 0;
                         // 내점수
+
                         for(int i = 0; i <= resultDay; i++) {
                             Log.d("여기도 좀 지나가줘3333333 ㅠㅠ", String.valueOf(resultDay));
                             final PointInfo[] pointInfos = {new PointInfo()};
@@ -300,7 +320,8 @@ public class BattleActivity extends AppCompatActivity {
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
                                     point[0] = 0;
-                                    Log.d("여기도1","");
+                                    chart1.addBar(new BarModel(date, point[0], 0xFF56B7F1));
+                                    //dataList1.add(new BarEntry(finalI, point[0]));
                                 }
 
                                 @Override
@@ -308,11 +329,14 @@ public class BattleActivity extends AppCompatActivity {
                                     pointInfos[0] = snapshot.getValue(PointInfo.class);
                                     if(pointInfos[0] == null || pointInfos[0].equals(null)) {
                                         point[0] = 0;
-                                        Log.d("여기도2", "");
+                                        chart1.addBar(new BarModel(date, point[0], 0xFF56B7F1));
+                                        //dataList1.add(new BarEntry(finalI, point[0]));
                                     }
                                     else {
                                         point[0] += pointInfos[0].getPoint();
-                                        Log.d("내 점수", String.valueOf(point[0]));
+                                        chart1.addBar(new BarModel(date, point[0], 0xFF56B7F1));
+                                        //dataList1.add(new BarEntry(finalI, point[0]));
+                                        Log.d("내 그래프"+finalI, String.valueOf(point[0]));
                                         // 그래프!X -> 프로그레스
                                         ProgressBar myPoint = findViewById(R.id.myPointBar);
                                         myPoint.setProgress(point[0]);
@@ -342,7 +366,8 @@ public class BattleActivity extends AppCompatActivity {
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
                                     point[0] = 0;
-                                    Log.d("여기도11","");
+                                    chart2.addBar(new BarModel(date, point[0], 0xFFFF3366));
+                                    //dataList2.add(new BarEntry(finalI, point[0]));
                                 }
 
                                 @Override
@@ -350,12 +375,14 @@ public class BattleActivity extends AppCompatActivity {
                                     pointInfos[0] = snapshot.getValue(PointInfo.class);
                                     if(pointInfos[0] == null || pointInfos[0].equals(null)) {
                                         point[0] = 0;
-                                        Log.d("여기도22","");
+                                        chart2.addBar(new BarModel(date, point[0], 0xFFFF3366));
+                                        //dataList2.add(new BarEntry(finalI, point[0]));
                                     }
                                     else {
                                         point[0] += pointInfos[0].getPoint();
-                                        Log.d("그래프2 - " + finalI, String.valueOf(point[0]));
-
+                                        Log.d("상대 그래프" + finalI, String.valueOf(point[0]));
+                                        chart2.addBar(new BarModel(date, point[0], 0xFFFF3366));
+                                        //dataList2.add(new BarEntry(finalI, point[0]));
                                         // 그래프!X -> 프로그레스
                                         ProgressBar opPoint = findViewById(R.id.opPointBar);
                                         opPoint.setProgress(point[0]);
@@ -370,6 +397,33 @@ public class BattleActivity extends AppCompatActivity {
                         e.printStackTrace();
                         resultDay = 0;
                     }
+                    chart1.startAnimation();
+                    chart2.startAnimation();
+
+                    /*
+                    // 초기화
+                    BarChart barChart1 = findViewById(R.id.tab1_chart_1);
+                    BarDataSet  barDataSet1 = new BarDataSet(dataList1, "Data1");
+                    barDataSet1.setColor(Color.RED);
+                    // 바 데이터 생성
+                    BarData barData1 = new BarData();
+                    //바 데이터에 데이터셋 추가
+                    barData1.addDataSet(barDataSet1);
+                    barChart1.setData(barData1);
+                    barChart1.invalidate(); // 차트 업데이트
+                    barChart1.setTouchEnabled(false); // 차트 터치 불가능하게
+
+                    // 초기화
+                    BarChart barChart2 = findViewById(R.id.tab1_chart_2);
+                    BarDataSet  barDataSet2 = new BarDataSet(dataList2, "Data2");
+                    barDataSet2.setColor(Color.RED);
+                    // 바 데이터 생성
+                    BarData barData2 = new BarData();
+                    //바 데이터에 데이터셋 추가
+                    barData2.addDataSet(barDataSet2);
+                    barChart2.setData(barData2);
+                    barChart2.invalidate(); // 차트 업데이트
+                    barChart2.setTouchEnabled(false); // 차트 터치 불가능하게
 
                     /*
                     try {
@@ -401,8 +455,8 @@ public class BattleActivity extends AppCompatActivity {
                         barChart2.setData(barData2);
                     } catch (ParseException e) {
                         e.printStackTrace();
-                    }
-                    */
+                    }*/
+
                 }
             }
         });
@@ -422,6 +476,7 @@ public class BattleActivity extends AppCompatActivity {
             String date = fm.format(cal.getTime());
             //데이터 읽기
             int finalI = i;
+            int finalI1 = i;
             mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
@@ -435,8 +490,8 @@ public class BattleActivity extends AppCompatActivity {
                         point[0] = 0;
                     else {
                         point[0] = pointInfos[0].getPoint();
-                        Log.d("그래프1 - " + finalI, String.valueOf(point[0]));
-                        dataList.add(new BarEntry(finalI, point[0]));
+                        Log.d("내 그래프 포인트 ", String.valueOf(point[0]));
+                        //ataList1.add(new BarEntry(1, point[0]));
                     }
                 }
             });
