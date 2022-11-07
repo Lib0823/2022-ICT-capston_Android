@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:paddingTop="10dp"
         android:paddingRight="20dp"
@@ -61,6 +61,7 @@
             android:max="3500"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:progressTint="#619bfc"
+            android:layout_marginBottom="20dp"
             android:progressBackgroundTint="#E0E0E0"
             android:layout_width="match_parent"
             android:layout_height="10dp"/>

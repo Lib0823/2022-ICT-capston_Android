@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                         String date2 = sdf.format(date);
 
                                         SimpleDateFormat sdfDay = new SimpleDateFormat("dd");
-                                        int dayday = Integer.parseInt(sdfDay.format(date));
+                                        //int dayday = Integer.parseInt(sdfDay.format(date));
 
                                         final UserAccount[] userInfo = {new UserAccount()};
                                         //데이터 읽기
