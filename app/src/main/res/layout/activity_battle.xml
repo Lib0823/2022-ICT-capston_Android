@@ -28,8 +28,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal">
 
             <TextView
@@ -48,9 +49,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
             android:orientation="horizontal">
 
             <TextView
@@ -64,6 +65,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fighting"/>
 
         <Button
             android:id="@+id/battleRequest"
@@ -102,7 +108,7 @@
             android:layout_height="693dp"
             android:orientation="vertical">
 
-            <!-- 스크롤뷰 자식 레이아웃 (의미는 없지만 필요한 레이아웃. 삭제는 ㄴㄴ) -->
+            <!-- ScrollView는 하나의 자식만 가질 수 있기 때문에 Layout으로 묶어준다. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -318,6 +324,14 @@
                             app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp" />
                     </LinearLayout>
+
+                    <!-- 채팅으로 이동하는 버튼 -->
+                    <Button
+                        android:id="@+id/chatBattleBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="채팅대결"/>
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

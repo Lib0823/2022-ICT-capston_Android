@@ -3,6 +3,8 @@ package com.example.project2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -61,7 +63,7 @@ public class BattleActivity extends AppCompatActivity {
     ArrayList data;
     ArrayAdapter adapter;
     EditText battleId;
-    Button battleRequest;
+    Button battleRequest, chatBattleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,15 @@ public class BattleActivity extends AppCompatActivity {
         final UserAccount[] userInfo = {new UserAccount()};
         llBattle = findViewById(R.id.ll_battlelayout);
         llresultlayout = findViewById(R.id.ll_resultlayout);
+
+        chatBattleBtn = findViewById(R.id.chatBattleBtn);
+        chatBattleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BattleActivity.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // 런값 확인 후, 화면 보여 줌.
         mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -166,8 +177,8 @@ public class BattleActivity extends AppCompatActivity {
                                     mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                                            Toast toast = Toast.makeText(BattleActivity.this, "회원님의 정보를 가져오지 못했습니다.", Toast.LENGTH_SHORT);
-                                            toast.show();
+//                                            Toast toast = Toast.makeText(BattleActivity.this, "회원님의 정보를 가져오지 못했습니다.", Toast.LENGTH_SHORT);
+//                                            toast.show();
                                         }
 
                                         @Override
@@ -181,6 +192,8 @@ public class BattleActivity extends AppCompatActivity {
                                             else {
                                                 Toast toast = Toast.makeText(BattleActivity.this, "상대방의 정보를 찾았습니다.", Toast.LENGTH_LONG);
                                                 toast.show();
+                                                Intent intent = new Intent(BattleActivity.this, BattleActivity.class);
+                                                startActivity(intent);
                                                 userId = userInfo[0].getId();
                                                 BattleInfo battleInfo = new BattleInfo();
                                                 battleInfo.setUserId(userId);

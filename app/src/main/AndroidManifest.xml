@@ -18,6 +18,14 @@
         android:theme="@style/Theme.Project2"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ChatActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DetailActivity"
             android:exported="false">
             <meta-data
@@ -35,22 +43,15 @@
         <activity
             android:name=".BoardActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".BoardAddActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan">
-
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".BoardUpdateActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".RunActivity"
             android:exported="false" />
