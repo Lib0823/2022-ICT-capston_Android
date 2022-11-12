@@ -3,16 +3,13 @@ package com.example.project2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import java.io.*;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,18 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.nio.Buffer;
+import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
     private Handler mHandler;
@@ -54,7 +45,6 @@ public class ChatActivity extends AppCompatActivity {
     String read;
 
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
-    private FirebaseDatabase mFirebaseDB;
     private DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
 
@@ -63,12 +53,6 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStop() {
         Log.d("onStop","onStop함수 실행됨..");
         super.onStop();
-//        try {
-//            sendWriter.close();
-//            socket.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
@@ -79,10 +63,8 @@ public class ChatActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         chatView = (TextView) findViewById(R.id.chatView);
         message = (EditText) findViewById(R.id.message);
-//        Intent intent = getIntent();
-//        UserID = intent.getStringExtra("username");
-//        textView.setText(UserID);
         final UserAccount[] userInfo = {new UserAccount()};
+
         // 현재 사용자 ID가져오기
         mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -117,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
                         Log.d("읽어온 값", read);
                         //System.out.println("TTTTTTTT"+read);
                         if(read!=null){
-                            mHandler.post(new msgUpdate(read));
+                            mHandler.post(new BattleActivity.msgUpdate(read));
                         }
                     }
                 } catch (IOException e) {
@@ -150,14 +132,4 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    // 더이상 읽어올 값(read)이 없으면 개행
-    class msgUpdate implements Runnable{
-        private String msg;
-        public msgUpdate(String str) {this.msg=str;}
-
-        @Override
-        public void run() {
-            chatView.setText(chatView.getText().toString()+msg+"\n");
-        }
-    }
 }

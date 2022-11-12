@@ -2,14 +2,18 @@ package com.example.project2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +40,12 @@ import com.google.firebase.database.ValueEventListener;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,25 +73,40 @@ public class BattleActivity extends AppCompatActivity {
     ArrayList data;
     ArrayAdapter adapter;
     EditText battleId;
-    Button battleRequest, chatBattleBtn;
+    Button battleRequest, chatbutton;
+
+    // 채팅 사용 필드
+    private static ArrayList<ChatItem> chatList;
+    private String strUserID = "이용자";
+    private Handler mHandler;
+    InetAddress serverAddr;
+    Socket socket;
+    PrintWriter sendWriter;
+    private String ip = "192.168.0.2";
+    private int port = 7000;
+    String UserID;
+    EditText message;
+    String sendmsg;
+    String read;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         final UserAccount[] userInfo = {new UserAccount()};
         llBattle = findViewById(R.id.ll_battlelayout);
         llresultlayout = findViewById(R.id.ll_resultlayout);
 
-        chatBattleBtn = findViewById(R.id.chatBattleBtn);
+        /*chatBattleBtn = findViewById(R.id.chatBattleBtn);
         chatBattleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(BattleActivity.this, ChatActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         // 런값 확인 후, 화면 보여 줌.
         mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -414,170 +439,150 @@ public class BattleActivity extends AppCompatActivity {
                     chart1.startAnimation();
                     chart2.startAnimation();
 
-                    /*
-                    // 초기화
-                    BarChart barChart1 = findViewById(R.id.tab1_chart_1);
-                    BarDataSet  barDataSet1 = new BarDataSet(dataList1, "Data1");
-                    barDataSet1.setColor(Color.RED);
-                    // 바 데이터 생성
-                    BarData barData1 = new BarData();
-                    //바 데이터에 데이터셋 추가
-                    barData1.addDataSet(barDataSet1);
-                    barChart1.setData(barData1);
-                    barChart1.invalidate(); // 차트 업데이트
-                    barChart1.setTouchEnabled(false); // 차트 터치 불가능하게
-
-                    // 초기화
-                    BarChart barChart2 = findViewById(R.id.tab1_chart_2);
-                    BarDataSet  barDataSet2 = new BarDataSet(dataList2, "Data2");
-                    barDataSet2.setColor(Color.RED);
-                    // 바 데이터 생성
-                    BarData barData2 = new BarData();
-                    //바 데이터에 데이터셋 추가
-                    barData2.addDataSet(barDataSet2);
-                    barChart2.setData(barData2);
-                    barChart2.invalidate(); // 차트 업데이트
-                    barChart2.setTouchEnabled(false); // 차트 터치 불가능하게
-
-                    /*
-                    try {
-                        Log.d("여기도 좀 지나가줘 ㅠㅠ", "");
-                        // 초기화
-                        BarChart barChart1 = findViewById(R.id.tab1_chart_1);
-                        BarDataSet  barDataSet1 = new BarDataSet(data1(resultDay, tv_resultStart.getText().toString()), "Data1");
-                        barDataSet1.setColor(Color.RED);
-                        // 바 데이터 생성
-                        BarData barData1 = new BarData();
-                        //바 데이터에 데이터셋 추가
-                        barData1.addDataSet(barDataSet1);
-                        barChart1.setData(barData1);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    try {
-                    // 초기화
-                    BarChart barChart2 = findViewById(R.id.tab1_chart_2);
-                    // 데이터 생성
-                    BarDataSet barDataSet2 = new BarDataSet(data2(resultDay, tv_resultStart.getText().toString(), opUserToken[0]), "Data2");
-                        barDataSet2.setColor(Color.BLUE);
-                        // 바 데이터 생성
-                        BarData barData2 = new BarData();
-                        //바 데이터에 데이터셋 추가
-                        barData2.addDataSet(barDataSet2);
-                        barChart2.setData(barData2);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }*/
-
                 }
             }
+
         });
-    }
 
-    private ArrayList<BarEntry> data1(int resultDay, String startDay) throws ParseException {
-        ArrayList<BarEntry> dataList = new ArrayList<>();
-        for(int i = 0; i < resultDay; i++) {
-            final PointInfo[] pointInfos = {new PointInfo()};
-            final int[] point = {0};
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-            Date to = fm.parse(startDay);
+        long now1 = System.currentTimeMillis();
+        Date date4 = new Date(now1);
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mm:ss");
+        String getTime1 = dateFormat2.format(date4);
 
-            Calendar cal = Calendar.getInstance();	 //날짜 계산을 위해 Calendar 추상클래스 선언 getInstance()메소드 사용
-            cal.setTime(to);
-            cal.add(Calendar.DATE, i);
-            String date = fm.format(cal.getTime());
-            //데이터 읽기
-            int finalI = i;
-            int finalI1 = i;
-            mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                    point[0] = 0;
-                }
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    pointInfos[0] = snapshot.getValue(PointInfo.class);
-                    if(pointInfos[0] == null || pointInfos[0].equals(null))
-                        point[0] = 0;
-                    else {
-                        point[0] = pointInfos[0].getPoint();
-                        Log.d("내 그래프 포인트 ", String.valueOf(point[0]));
-                        //ataList1.add(new BarEntry(1, point[0]));
+        ////////////////////////////// 채팅 코드 ////////////////////////////////////////////////////
+        chatList = new ArrayList<>();
+
+        RecyclerView recyclerView = findViewById(R.id.chatRecyclerView);
+        LinearLayoutManager manager
+                = new LinearLayoutManager(BattleActivity.this, LinearLayoutManager.VERTICAL,false);
+
+        recyclerView.setLayoutManager(manager); // LayoutManager 등록
+        recyclerView.setAdapter(new ChatAdapter(chatList));  // Adapter 등록
+
+        chatbutton = (Button) findViewById(R.id.chatbutton);
+        message = findViewById(R.id.message);
+
+        // 메인 Thread() - 소켓 세팅, read/update
+        new Thread() {
+            public void run() {
+                try {
+                    serverAddr = InetAddress.getByName(ip);
+                    socket = new Socket(serverAddr, port);
+                    sendWriter = new PrintWriter(socket.getOutputStream());
+                    BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    while(true){
+                        read = input.readLine();
+                        if(read!=null){
+                            mHandler.post(new msgUpdate(read));
+                        }
                     }
-                }
-            });
+                } catch (IOException e) {
+                    e.printStackTrace();
+            } }}.start();
 
-        }
-        return dataList;
-    }
+        chatbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendmsg = message.getText().toString();
 
-    private ArrayList<BarEntry> data2(int resultDay, String startDay, String opid) throws ParseException {
-        ArrayList<BarEntry> dataList = new ArrayList<>();
-
-        // 상대방에 아이디를 통해서 상대방 토큰을 가져온다.
-
-
-        for(int i = 0; i < resultDay; i++) {
-            final PointInfo[] pointInfos = {new PointInfo()};
-            final int[] point = {0};
-            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-            Date to = fm.parse(startDay);
-
-            Calendar cal = Calendar.getInstance();	 //날짜 계산을 위해 Calendar 추상클래스 선언 getInstance()메소드 사용
-            cal.setTime(to);
-            cal.add(Calendar.DATE, i);
-            String date = fm.format(cal.getTime());
-            //데이터 읽기
-            int finalI = i;
-            mDatabaseRef.child("point").child(opid).child(date).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                    point[0] = 0;
-                }
-
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    pointInfos[0] = snapshot.getValue(PointInfo.class);
-                    if(pointInfos[0] == null || pointInfos[0].equals(null))
-                        point[0] = 0;
-                    else {
-                        point[0] = pointInfos[0].getPoint();
-                        Log.d("그래프2 - " + finalI, String.valueOf(point[0]));
-                        dataList.add(new BarEntry(finalI, point[0]));
+                // 현재 사용자 이름 가져오기
+                mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                        strUserID = "아이디 에러";
                     }
-                }
-            });
 
-        }
-        return dataList;
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userInfo[0] = snapshot.getValue(UserAccount.class);
+                        if(userInfo[0] == null || userInfo[0].getId() == null || userInfo[0].getId().length() == 0 || userInfo[0].equals(null))
+                            strUserID = "아이디 에러";
+                        else {
+                            strUserID = userInfo[0].getName();
+                            chatList.add(new ChatItem(strUserID+"님이 입장하셨습니다.", null, null, ViewType.CENTER_JOIN));
+                            // 버튼 Thread() - 자신이 보낸 메세지 출력
+                            new Thread() {
+                                @Override
+                                public void run() {
+                                    super.run();
+                                    try {
+                                        Log.d("전송정보",strUserID);
+                                        Log.d("전송정보",getTime1);
+                                        Log.d("전송정보",sendmsg);
+                                        sendWriter.println(UserID+"#@#"+getTime1+"#@#"+sendmsg+"\n");
+                                        Log.d("printWriter", "println성공");
+                                        sendWriter.flush();
+                                        message.setText("");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }.start();
+                        }
+                    }
+                });
+            }
+
+
+        });
+
     }
 
-    // 이름 변경을 위한 메소드
-    private void read() {
-
+    // 더이상 읽어올 값(read)이 없으면 개행
+    static class msgUpdate implements Runnable{
+        private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance(); // 파이어베이스 데이터베이스 연동
+        private FirebaseDatabase mFirebaseDB;
+        private DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        private FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser(); // 방금 로그인 성공한 유저의 정보를 가져오는 객체
+        private String strCompare = "";
+        private String str;
+        private String id;
+        private String time;
+        private String msg;
         final UserAccount[] userInfo = {new UserAccount()};
-        //데이터 읽기
-        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                userId = "아이디 에러";
-            }
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userInfo[0] = snapshot.getValue(UserAccount.class);
-                if(userInfo[0] == null || userInfo[0].getId() == null || userInfo[0].getId().length() == 0 || userInfo[0].equals(null))
-                    userId = "아이디 에러";
-                else
-                    userId = userInfo[0].getId();
+        public msgUpdate(String str) {this.str=str;}
+
+        @Override
+        public void run() {
+            String[] array = str.split("#@#");
+
+            //출력
+            for(int i=0;i<array.length;i++) {
+                if(i==0) {
+                    id = array[i];
+                }
+                else if(i==1) {
+                    time = array[i];
+                }
+                else if(i==2) {
+                    msg = array[i];
+                }
             }
-        });
-        /*if(userInfo[0].getName() == null || userInfo[0].getName().length() == 0)
-            welcome.setText("회원정보를 불러오지 못했습니다.");
-        else if (userInfo[0].getDogName().equals(""))
-            tvDogName.setText(userInfo[0].getDogName());*/
+            // 현재 사용자 이름 가져오기
+            mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
+                    strCompare = "아이디 에러";
+                }
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    userInfo[0] = snapshot.getValue(UserAccount.class);
+                    if(userInfo[0] == null || userInfo[0].getName() == null || userInfo[0].getName().length() == 0 || userInfo[0].equals(null))
+                        strCompare = "아이디 에러";
+                    else {
+                        strCompare = userInfo[0].getName();
+                    }
+                }
+            });
+            if(strCompare.equals(id)) {
+                chatList.add(new ChatItem(msg, null, time, ViewType.RIGHT_CHAT));
+            } else {
+                chatList.add(new ChatItem(msg, id, time, ViewType.LEFT_CHAT));
+            }
+        }
     }
+
 }
