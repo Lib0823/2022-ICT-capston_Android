@@ -176,6 +176,7 @@ public class BattleActivity extends AppCompatActivity {
                                             if(userInfo[0] == null || userInfo[0].getId() == null || userInfo[0].getId().length() == 0 || userInfo[0].equals(null)) {
                                                 Toast toast = Toast.makeText(BattleActivity.this, "회원님의 정보를 가져오지 못했습니다.", Toast.LENGTH_SHORT);
                                                 toast.show();
+                                                return;
                                             }
                                             else {
                                                 Toast toast = Toast.makeText(BattleActivity.this, "상대방의 정보를 찾았습니다.", Toast.LENGTH_LONG);
@@ -213,8 +214,8 @@ public class BattleActivity extends AppCompatActivity {
                                                 mDatabaseRef.child("project").child(opUserToken[0]).updateChildren(taskMap2);
                                                 Toast toast1 = Toast.makeText(BattleActivity.this, "대결이 시작되었습니다.", Toast.LENGTH_LONG);
                                                 toast1.show();
-                                                //llBattle.setVisibility(View.GONE);
-                                                //llresultlayout.setVisibility(View.VISIBLE);
+                                                llBattle.setVisibility(View.GONE);
+                                                llresultlayout.setVisibility(View.VISIBLE);
                                                 return;
                                             }
                                         }

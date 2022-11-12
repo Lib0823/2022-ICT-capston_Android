@@ -168,6 +168,7 @@ public class FitnessActivity extends AppCompatActivity {
                     case R.id.action_home:
                         Intent intent = new Intent(FitnessActivity.this, MainActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_fitness:
@@ -175,11 +176,13 @@ public class FitnessActivity extends AppCompatActivity {
                     case R.id.action_board:
                         Intent intent2 = new Intent(FitnessActivity.this, BoardActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_info:
                         Intent intent3 = new Intent(FitnessActivity.this, InfoActivity.class);
                         startActivity(intent3);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                 }

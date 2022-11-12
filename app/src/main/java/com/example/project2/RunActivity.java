@@ -437,8 +437,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
 
     }
 
-
-
     // 지속적으로 위치를 받아와 설정해줌
     @Override
     public void onLocationChange(Location location) {

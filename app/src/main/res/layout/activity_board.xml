@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -57,7 +57,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="400dp">
+                android:layout_height="match_parent">
             </androidx.recyclerview.widget.RecyclerView>
             <!--<ListView
                 android:id="@+id/list"
@@ -85,42 +85,36 @@
                 android:text="등록"/>
         </LinearLayout> -->
 
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_write"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_baseline_add_circle_24"
-                android:layout_marginBottom="50dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true">
-
-            </com.google.android.material.floatingactionbutton.FloatingActionButton>
-        </RelativeLayout>
-
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottonNavi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:layout_margin="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="13dp"
         android:background="@drawable/radius_bottom_navi"
-        app:labelVisibilityMode="labeled"
         app:itemIconTint="#000000"
         app:itemTextColor="#000000"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/botton_menu"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="383dp"
-        android:layout_alignParentBottom="true"/>
+        tools:layout_editor_absoluteY="383dp" />
 
-</RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/ic_baseline_add_circle_24">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+</FrameLayout>

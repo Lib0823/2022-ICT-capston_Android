@@ -79,16 +79,19 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_fitness:
                         Intent intent = new Intent(MainActivity.this, FitnessActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_board:
                         Intent intent2 = new Intent(MainActivity.this, BoardActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_info:
                         Intent intent3 = new Intent(MainActivity.this, InfoActivity.class);
                         startActivity(intent3);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                 }

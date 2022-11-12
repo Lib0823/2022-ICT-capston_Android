@@ -120,12 +120,59 @@
                     android:elevation="20dp"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="이용자 ID : "
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_myId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="상대방 ID : "
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_resultId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
                     <!--대결시작일-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:gravity="center"
                         android:orientation="horizontal">
@@ -151,65 +198,17 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="대결 마감일 : "
-                            android:textSize="18sp" />
-
+                            android:textSize="18sp"/>
                         <TextView
                             android:id="@+id/tv_resultEnd"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="이용자 ID : "
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tv_myId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="상대방 ID : "
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/tv_resultId"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:textSize="18sp" />
@@ -220,8 +219,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:orientation="vertical">
 
@@ -236,9 +235,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/radius_back4_gray"
                         android:backgroundTint="@color/bg_white"
@@ -262,7 +259,10 @@
                             android:id="@+id/tab1_chart_1"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:layout_margin="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp"
                             app:egBarWidth="20dp"
                             app:egFixedBarWidth="true"
                             app:egLegendHeight="40dp" />
@@ -289,9 +289,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/radius_back4_gray"
                         android:backgroundTint="@color/bg_white"

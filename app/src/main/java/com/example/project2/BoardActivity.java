@@ -29,11 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BoardActivity extends AppCompatActivity {
     private long backBtnTime = 0;
-    private ListView list;
     private ArrayAdapter<String> adapter;
     private BottomNavigationView bottomNavi, boardNavi;
     private Button contentBtn;
@@ -242,11 +240,13 @@ public class BoardActivity extends AppCompatActivity {
                     case R.id.action_home:
                         Intent intent = new Intent(BoardActivity.this, MainActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_fitness:
                         Intent intent2 = new Intent(BoardActivity.this, FitnessActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_board:
@@ -254,6 +254,7 @@ public class BoardActivity extends AppCompatActivity {
                     case R.id.action_info:
                         Intent intent3 = new Intent(BoardActivity.this, InfoActivity.class);
                         startActivity(intent3);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                 }

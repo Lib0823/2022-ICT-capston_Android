@@ -103,8 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             // 로그인 성공 시.
-
                             final UserAccount[] userInfo = {new UserAccount()};
+                            Log.d("뭐지?", firebaseUser.getUid());
                             //데이터 읽기
                             mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

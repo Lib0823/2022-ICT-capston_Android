@@ -96,16 +96,19 @@ public class InfoActivity extends AppCompatActivity {
                     case R.id.action_home:
                         Intent intent2 = new Intent(InfoActivity.this, MainActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_fitness:
                         Intent intent = new Intent(InfoActivity.this, FitnessActivity.class);
                         startActivity(intent);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_board:
                         Intent intent3 = new Intent(InfoActivity.this, BoardActivity.class);
                         startActivity(intent3);
+                        overridePendingTransition(0, 0);
                         finish();
                         break;
                     case R.id.action_info:
