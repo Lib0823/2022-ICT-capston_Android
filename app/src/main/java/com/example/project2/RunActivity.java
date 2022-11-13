@@ -169,7 +169,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
                     if(point==null){
                         point = 0;
                     }
-
                     int to = (int) total; // 총 거리
                     if(to==0) {
                         to=1;
@@ -488,25 +487,32 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             tvWeather.setText(weather);
             Log.d("r1의 정보", weather121313);
             Log.d("weather의 정보", weather);
-            if(!weather121313.equals(weather)) {
-                // 날씨에 따라 이미지 변경
-                if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
-                    Glide.with(RunActivity.this).load(R.mipmap.sun).into(ivWeather);
-                    ivWeather.setImageResource(R.mipmap.sun);
-                    weather121313 = "현재 날씨는 맑은 상태입니다.";
-                } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
-                    Glide.with(RunActivity.this).load(R.mipmap.rain).into(ivWeather);
-                    ivWeather.setImageResource(R.mipmap.rain);
-                    weather121313 = "현재 날씨는 비가 오는 상태입니다.";
-                } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
-                    Glide.with(RunActivity.this).load(R.mipmap.cloudy).into(ivWeather);
-                    ivWeather.setImageResource(R.mipmap.cloudy);
-                    weather121313 = "현재 날씨는 구름이 많은 상태입니다.";
-                } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
-                    Glide.with(RunActivity.this).load(R.mipmap.clouds).into(ivWeather);
-                    ivWeather.setImageResource(R.mipmap.clouds);
-                    weather121313 = "현재 날씨는 흐린 상태입니다.";
+            try {
+                if(!weather121313.equals(weather)) {
+                    // 날씨에 따라 이미지 변경
+                    if (weather.equals("현재 날씨는 맑은 상태입니다.")) {
+                        Glide.with(RunActivity.this).load(R.mipmap.sun).into(ivWeather);
+                        ivWeather.setImageResource(R.mipmap.sun);
+                        weather121313 = "현재 날씨는 맑은 상태입니다.";
+                    } else if (weather.equals("현재 날씨는 비가 오는 상태입니다.")) {
+                        Glide.with(RunActivity.this).load(R.mipmap.rain).into(ivWeather);
+                        ivWeather.setImageResource(R.mipmap.rain);
+                        weather121313 = "현재 날씨는 비가 오는 상태입니다.";
+                    } else if (weather.equals("현재 날씨는 구름이 많은 상태입니다.")) {
+                        Glide.with(RunActivity.this).load(R.mipmap.cloudy).into(ivWeather);
+                        ivWeather.setImageResource(R.mipmap.cloudy);
+                        weather121313 = "현재 날씨는 구름이 많은 상태입니다.";
+                    } else if (weather.equals("현재 날씨는 흐린 상태입니다.")) {
+                        Glide.with(RunActivity.this).load(R.mipmap.clouds).into(ivWeather);
+                        ivWeather.setImageResource(R.mipmap.clouds);
+                        weather121313 = "현재 날씨는 흐린 상태입니다.";
+                    }
                 }
+            } catch(Exception e){
+                Log.d("날씨 에러입니다.", "난 몰라~");
+                Toast toast = Toast.makeText(RunActivity.this, "네트워크 에러가 발생했습니다.", Toast.LENGTH_SHORT);
+                toast.show();
+                finish();
             }
         }
 
