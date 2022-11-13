@@ -19,7 +19,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     {
         myDataList = dataList;
     }
-
+    ChatAdapter(){}
     // 어댑터 클래스 상속시 구현해야할 함수 3가지 : onCreateViewHolder, onBindViewHolder, getItemCount
     // 리사이클러뷰에 들어갈 뷰 홀더를 할당하는 함수,
     // 뷰 홀더는 실제 레이아웃 파일과 매핑되어야하며, extends의 Adater<>에서 <>안에들어가는 타입을 따른다.

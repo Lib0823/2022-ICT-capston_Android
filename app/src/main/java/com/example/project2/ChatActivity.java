@@ -99,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
                         Log.d("읽어온 값", read);
                         //System.out.println("TTTTTTTT"+read);
                         if(read!=null){
-                            mHandler.post(new BattleActivity.msgUpdate(read));
+                            //mHandler.post(new BattleActivity.msgUpdate(read));
                         }
                     }
                 } catch (IOException e) {
