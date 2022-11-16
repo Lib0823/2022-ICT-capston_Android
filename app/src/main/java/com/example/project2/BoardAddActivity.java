@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BoardAddActivity extends AppCompatActivity {
-    private TextView tv_date, tv_name;
+    private TextView tv_date, tv_name, tv_time;
     private EditText et_content, et_title;
     private Button btn_add;
 
@@ -39,6 +39,7 @@ public class BoardAddActivity extends AppCompatActivity {
 
         et_title = findViewById(R.id.et_title);
         tv_date = findViewById(R.id.tv_date);
+        tv_time = findViewById(R.id.tv_time);
         tv_name = findViewById(R.id.tv_name);
         et_content = findViewById(R.id.et_content);
 
@@ -50,6 +51,10 @@ public class BoardAddActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyy-MM-dd");
         String date2 = sdf.format(date);
         tv_date.setText(date2);
+
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+        String time = sdfTime.format(date);
+        tv_time.setText(time);
 
         // 회원가입 액티비티 처럼 데이터 삽입만 하면 끝남.
         // 수정은 못 할 것 같은데 시발...
@@ -71,15 +76,16 @@ public class BoardAddActivity extends AppCompatActivity {
                 boardInfo.setTitle(title);
                 boardInfo.setDate(date);
                 boardInfo.setName(name);
+                boardInfo.setTime(time);
                 boardInfo.setContent(content);
                 boardInfo.setField(field);
-                mDatabaseRef1.child("board").child(field).push().setValue(boardInfo);
+
+                mDatabaseRef1.child("board").child(field).child(date2+time).setValue(boardInfo);
                 Toast toast = Toast.makeText(BoardAddActivity.this, "게시물 저장이 완료되었습니다.", Toast.LENGTH_SHORT);
                 toast.show();
                 finish();
             }
         });
-
     }
 
     // 찐 이름 가져오는 메소드

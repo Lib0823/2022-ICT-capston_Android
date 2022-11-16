@@ -58,24 +58,6 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        /*DataBase연결부분
-        helper = new DatabaseOpenHelper(InfoActivity.this, DatabaseOpenHelper.tableName, null, version);
-        database = helper.getWritableDatabase();
-
-        sql = "SELECT * FROM "+ helper.tableName + " WHERE login = '1'";
-        cursor = database.rawQuery(sql, null);
-
-        cursor.moveToNext();   // 첫번째에서 다음 레코드가 없을때까지 읽음
-        String id = cursor.getString(0);
-        String pw = cursor.getString(1);
-        String name = cursor.getString(2);
-        String age = cursor.getString(3);
-        String height = cursor.getString(4);
-        String weight = cursor.getString(5);
-        String gender = cursor.getString(6);
-        idEdit.setText(id); ageEdit.setText(age); genderEditText.setText(gender); heightEdit.setText(height);
-        pwEdit.setText(pw);nameEdit.setText(name);weightEdit.setText(weight);
-         */
         idEdit = findViewById(R.id.idEditText);
         pwEdit = findViewById(R.id.pwEditText);
         nameEdit = findViewById(R.id.nameEditText);
@@ -84,7 +66,6 @@ public class InfoActivity extends AppCompatActivity {
         weightEdit = findViewById(R.id.weightEditText);
         genderEditText = findViewById(R.id.genderEditText);
         read();
-
 
         // 이 친구의 역활 물어보기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 아마 하단버튼?
         // 하단 네비게이션바 맞는데 역할 입니다 행님
@@ -200,27 +181,6 @@ public class InfoActivity extends AppCompatActivity {
                     weightEdit.setText("");
                 }
                 else{
-                    //for(DataSnapshot snapshot1 : snapshot.getChildren()) {
-                       // UserAccount user = snapshot1.getValue(UserAccount.class); // 만들어뒀던 유저 객체에 데이터 담기!
-                        //arrayList.add(user);    // 담은 데이터 배열리스트에 저장.
-                    //}
-                    /*ageEdit.setText((CharSequence) arrayList.get(0));
-                    date = String.valueOf( arrayList.get(1));
-                    gender = String.valueOf(arrayList.get(2));
-                    heightEdit.setText((CharSequence) arrayList.get(3));
-                    idEdit.setText((CharSequence) arrayList.get(4));
-                    idToken = String.valueOf(arrayList.get(5));
-                    nameEdit.setText((CharSequence) arrayList.get(6));
-                    pwEdit.setText((CharSequence) arrayList.get(7));
-                    run = Integer.parseInt(String.valueOf(arrayList.get(8)));
-                    weightEdit.setText((CharSequence) arrayList.get(9));
-
-                    for(int i = 0; i < 10; i++) {
-                        Log.d("DB 정보 "+i, String.valueOf(arrayList.get(i)));
-                    }*/
-
-                    //Log.d( "정보", String.valueOf(userInfo[0].getAge()));
-                    //idToken = String.valueOf(userInfo[0].getIdToken());
                     date = String.valueOf(userInfo[0].getDate());
                     gender = String.valueOf(userInfo[0].getGender());
                     run = userInfo[0].getRun();

@@ -166,35 +166,28 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
                     point = 0;
                 else {
                     point = pointInfos[0].getPoint();
-                    if(point==null){
+                    if (point == null) {
                         point = 0;
                     }
-                    int to = (int) total; // 총 거리
-                    if(to==0) {
-                        to=1;
-                    }
-                    Log.d("c 정보", String.valueOf(c));
-                    int sumpoint = c * to;
-                    Log.d("sumpoint의 정보", String.valueOf(sumpoint));
-                    int resultpoint = point + sumpoint;
-                    Log.d("resultpoint의 정보", String.valueOf(resultpoint));
-
-                    Map<String, Object> taskMap2 = new HashMap<String, Object>();
-                    taskMap2.put("point", resultpoint);
-                    mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date2).updateChildren(taskMap2);
-                    Log.d("이이이이름", String.valueOf(point));
                 }
+                int to = (int) total; // 총 거리
+                if(to==0) {
+                    to=1;
+                }
+                Log.d("c 정보", String.valueOf(c));
+                int sumpoint = c * to;
+                Log.d("sumpoint의 정보", String.valueOf(sumpoint));
+                int resultpoint = point + sumpoint;
+                Log.d("resultpoint의 정보", String.valueOf(resultpoint));
+
+                Map<String, Object> taskMap2 = new HashMap<String, Object>();
+                taskMap2.put("point", resultpoint);
+                mDatabaseRef.child("point").child(firebaseUser.getUid()).child(date2).updateChildren(taskMap2);
+                Log.d("이이이이름", String.valueOf(point));
             }
         });
 
-//        // SQlite 런값 업데이트
-        //Log.d("여기여기!", String.valueOf(distance));
-       // point = (currentSteps * Integer.parseInt(String.valueOf(distance)));
-//        database.execSQL("UPDATE Run SET run="+point+" WHERE id='"+idemail+"'");
-
         // ***** 파베에서 해당 사용자의 id에 (date, point)값을 계속 갱신해준다.
-
-
         chrono.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
         chrono.stop();
@@ -213,10 +206,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
-
-        //DataBase연결부분
-        //helper = new DatabaseOpenHelper(RunActivity.this, DatabaseOpenHelper.tableRun, null, version);
-        //database = helper.getWritableDatabase();
 
         // 날씨 이미지 뷰
         ivWeather = findViewById(R.id.ivWeather);
@@ -271,27 +260,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
             }
         }
 
-        // 여기까지 날씨 구하기
-        
         kcal = findViewById(R.id.kcal);
-
-        /*//데이터 읽기
-        mDatabaseRef.child("project").child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { //참조에 액세스 할 수 없을 때 호출
-                run = 0;
-            }
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userInfo[0] = snapshot.getValue(UserAccount.class);
-                if(userInfo[0] == null ||  userInfo[0].equals(null))
-                    run = 0;
-                else {
-                    run = userInfo[0].getRun();
-                }
-            }
-        });*/
 
         //걸음수
         stepCount = findViewById(R.id.stepCount);
@@ -433,7 +402,6 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 
     // 지속적으로 위치를 받아와 설정해줌

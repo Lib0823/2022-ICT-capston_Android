@@ -1,207 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".JoinActivity"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
+        android:id="@+id/introImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SignUp"
-        android:textSize="15pt"
-        android:layout_margin="20dp"
-        android:gravity="center"/>
+        android:layout_gravity="center"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/idText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
             android:layout_alignEnd="@+id/pwText"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="@string/idText"
-            android:textSize="30sp" />
-
-
-        <TextView
-            android:id="@+id/pwText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/idText"
-            android:text="@string/pwText"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/pwText"
-            android:text="이름"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/ageText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/nameText"
-            android:text="나이"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/heightText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ageText"
-            android:text="키"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/weightText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/heightText"
-            android:text="몸무게"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/genderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/weightText"
-            android:text="성별"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/pwEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/pwText"
-            android:layout_alignBottom="@+id/pwText"
-            android:layout_alignParentEnd="true"
-
-            android:layout_toEndOf="@+id/pwText"
-            android:contentDescription="@string/pwDes"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:nextFocusForward="@+id/nameEditText"
-            android:text=""
-            android:textSize="15sp"
-            tools:ignore="LabelFor" />
+            android:text="E-mail"
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/idEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/idText"
-            android:layout_alignBottom="@+id/idText"
-            android:layout_alignParentEnd="true"
-
-            android:layout_toEndOf="@+id/idText"
-            android:contentDescription="아이디"
-            android:hint="id"
-            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:hint="이메일을 입력해주세요."
+            android:inputType="textEmailAddress"
             android:nextFocusForward="@+id/pwEditText"
-            android:text=""
+            android:background="@drawable/border"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/pwText"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/idText"
+            android:text="비밀번호"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/pwEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="비밀번호를 입력해주세요."
+            android:background="@drawable/border"
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:inputType="textPassword"
+            android:nextFocusForward="@+id/nameEditText"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pwText"
+            android:text="이름"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/nameEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/pwText"
-            android:layout_alignBottom="@+id/pwText"
-            android:layout_alignParentEnd="true"
-
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="-41dp"
+            android:paddingLeft="10dp"
             android:layout_toEndOf="@+id/pwText"
             android:contentDescription="이름"
-            android:hint="Inbeom"
+            android:hint="이름을 입력해주세요."
+            android:background="@drawable/border"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:inputType="textPersonName"
             android:nextFocusForward="@+id/ageEditText"
-            android:text=""
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/ageText"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="나이"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/ageEditText"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/nameText"
-            android:layout_alignBottom="@+id/nameText"
-            android:layout_alignParentEnd="true"
-
-            android:layout_marginStart="54dp"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="-41dp"
-            android:layout_toEndOf="@+id/nameText"
-            android:contentDescription="나이"
-            android:hint="21"
+            android:hint="나이를 입력해주세요."
             android:inputType="number"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:nextFocusForward="@+id/heightEditText"
-            android:text=""
+            android:paddingLeft="10dp"
+            android:background="@drawable/border"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/heightText"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ageText"
+            android:text="키"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/heightEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ageText"
-            android:layout_alignBottom="@+id/ageText"
-            android:layout_alignParentEnd="true"
-
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="-40dp"
-            android:layout_toEndOf="@+id/ageText"
-            android:contentDescription="키"
-            android:hint="178"
+            android:hint="키를 입력해주세요."
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:inputType="number"
             android:nextFocusForward="@+id/weightEditText"
-            android:text=""
+            android:paddingLeft="10dp"
+            android:background="@drawable/border"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/weightText"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/heightText"
+            android:text="몸무게"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/weightEditText"
-            android:layout_width="303dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/heightText"
-            android:layout_alignBottom="@+id/heightText"
-            android:layout_alignParentEnd="true"
-
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="-2dp"
-            android:layout_marginBottom="-41dp"
-            android:layout_toEndOf="@+id/heightText"
-            android:contentDescription="몸무게"
-            android:hint="78"
+            android:hint="몸무게를 입력해주세요."
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:background="@drawable/border"
             android:inputType="number"
-            android:nextFocusForward="@+id/btnJoin"
-            android:text=""
             android:textSize="15sp" />
-
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:id="@+id/genderText"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="성별"
+            android:layout_marginTop="15dp"
+            android:textSize="15sp" />
         <RadioGroup
             android:id="@+id/radioGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/genderText"
-            android:layout_alignBottom="@+id/genderText"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/genderText"
-            android:layout_marginLeft="50dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -217,23 +220,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RadioGroup>
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnJoin"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/bg_blue"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:text="회원가입"
         android:layout_gravity="center"
         tools:ignore="ButtonStyle" />
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/bg_blue"
         android:text="취소"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_gravity="center"
         tools:ignore="ButtonStyle" />
 

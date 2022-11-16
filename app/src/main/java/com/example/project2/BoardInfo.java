@@ -7,6 +7,7 @@ public class BoardInfo {
     private String date;
     private String idToken;
     private String field;
+    private String time;
 
     // 생성자 삭제하면 안됌!
     public BoardInfo() {}
@@ -62,5 +63,13 @@ public class BoardInfo {
 
     public void setField(String field) {
         this.field = field;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

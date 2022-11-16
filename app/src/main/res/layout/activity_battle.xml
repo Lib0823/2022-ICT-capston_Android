@@ -42,7 +42,8 @@
             <EditText
                 android:id="@+id/battleId"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"/>
         </LinearLayout>
 
         <!-- 대결신청_대결일 검색 레이아웃-->
@@ -67,6 +68,7 @@
         </LinearLayout>
 
         <ImageView
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/fighting"/>
@@ -74,10 +76,10 @@
         <Button
             android:id="@+id/battleRequest"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:backgroundTint="@color/bg_blue"
             android:text="대결하기" />
     </LinearLayout>
