@@ -17,232 +17,226 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="10dp"
-        android:padding="20dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/radius_back4_gray"
         android:orientation="vertical">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:id="@+id/idText"
-                android:text="@string/idText"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"
+                android:layout_alignEnd="@+id/pwText"
                 android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/pwText" />
-
-
-            <TextView
-                android:id="@+id/pwText"
-                android:text="@string/pwText"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/idText"
-                />
-
-            <TextView
-                android:id="@+id/nameText"
-                android:text="이름"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/pwText"
-                />
-
-            <TextView
-                android:id="@+id/ageText"
-                android:text="나이"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/nameText"
-                />
-
-            <TextView
-                android:id="@+id/heightText"
-                android:text="키"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ageText"
-                />
-
-            <TextView
-                android:id="@+id/weightText"
-                android:text="몸무게"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/heightText"
-                />
-
-            <TextView
-                android:id="@+id/genderText"
-                android:text="성별"
-                android:textSize="30sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/weightText"
-                />
-
-            <EditText
-                android:id="@+id/pwEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/pwText"
-                android:layout_alignBottom="@+id/pwText"
-                android:layout_alignParentEnd="true"
-                android:enabled="false"
-                android:layout_toEndOf="@+id/pwText"
-                android:contentDescription="@string/pwDes"
-                android:inputType="textPassword"
-                android:text=""
-                android:textSize="15sp"
-                tools:ignore="LabelFor"
-                android:nextFocusForward="@+id/nameEditText"
-                android:hint="password"/>
+                android:layout_alignParentTop="true"
+                android:text="E-mail"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/idEditText"
-                android:text=""
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:hint="이메일을 입력해주세요."
                 android:enabled="false"
-                android:contentDescription="아이디"
-                android:layout_alignTop="@+id/idText"
-                android:layout_alignBottom="@+id/idText"
-                android:layout_toEndOf="@+id/idText"
-                android:layout_alignParentEnd="true"
+                android:inputType="textEmailAddress"
                 android:nextFocusForward="@+id/pwEditText"
-                android:hint="id"/>
+                android:background="@drawable/border"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/pwText"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/idText"
+                android:text="비밀번호"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/pwEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="비밀번호를 입력해주세요."
+                android:background="@drawable/border"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:inputType="textPassword"
+                android:nextFocusForward="@+id/nameEditText"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pwText"
+                android:text="이름"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/nameEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/pwText"
-                android:layout_alignBottom="@+id/pwText"
-                android:layout_alignParentEnd="true"
-                android:enabled="false"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="-41dp"
+                android:paddingLeft="10dp"
                 android:layout_toEndOf="@+id/pwText"
                 android:contentDescription="이름"
+                android:enabled="false"
+                android:hint="이름을 입력해주세요."
+                android:background="@drawable/border"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:inputType="textPersonName"
-                android:text=""
-                android:textSize="15sp"
                 android:nextFocusForward="@+id/ageEditText"
-                android:hint="이인범"/>
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/ageText"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="나이"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/ageEditText"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/nameText"
-                android:layout_alignBottom="@+id/nameText"
-                android:layout_alignParentEnd="true"
-
-                android:layout_marginStart="54dp"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginBottom="-41dp"
-                android:layout_toEndOf="@+id/nameText"
-                android:contentDescription="나이"
+                android:hint="나이를 입력해주세요."
                 android:inputType="number"
-                android:text=""
-                android:textSize="15sp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:nextFocusForward="@+id/heightEditText"
-                android:hint="21"/>
+                android:paddingLeft="10dp"
+                android:background="@drawable/border"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/heightText"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ageText"
+                android:text="키"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/heightEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/ageText"
-                android:layout_alignBottom="@+id/ageText"
-                android:layout_alignParentEnd="true"
-
-                android:layout_marginStart="53dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="-40dp"
-                android:layout_toEndOf="@+id/ageText"
-                android:contentDescription="키"
+                android:hint="키를 입력해주세요."
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:inputType="number"
-                android:text=""
-                android:textSize="15sp"
                 android:nextFocusForward="@+id/weightEditText"
-                android:hint="178"/>
+                android:paddingLeft="10dp"
+                android:background="@drawable/border"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/weightText"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/heightText"
+                android:text="몸무게"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/weightEditText"
-                android:layout_width="303dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/heightText"
-                android:layout_alignBottom="@+id/heightText"
-                android:layout_alignParentEnd="true"
-
-                android:layout_marginStart="82dp"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="-2dp"
-                android:layout_marginBottom="-41dp"
-                android:layout_toEndOf="@+id/heightText"
-                android:contentDescription="몸무게"
+                android:hint="몸무게를 입력해주세요."
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/border"
                 android:inputType="number"
-                android:text=""
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/genderText"
+                android:text="성별"
                 android:textSize="15sp"
-                android:hint="78"/>
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weightText" />
 
             <EditText
                 android:id="@+id/genderEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/weightText"
-                android:layout_alignBottom="@+id/weightText"
-                android:layout_alignParentEnd="true"
-
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="-2dp"
-                android:layout_marginBottom="-41dp"
-                android:layout_toEndOf="@+id/weightText"
-                android:contentDescription="성별"
                 android:inputType="text"
-                android:text=""
                 android:textSize="15sp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:background="@drawable/border"
                 android:enabled="false"
                 android:hint="man"/>
-
-
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnUpdate"
-        android:text="정보수정"
-        android:textSize="9pt"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:backgroundTint="@color/bg_blue"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="right"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/textLogout"
@@ -250,23 +244,32 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:textSize="8pt"
+            android:textSize="15sp"
+            android:layout_weight="1"
             android:text="로그아웃"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="8pt"
-            android:text=" / "/>
+
         <TextView
             android:id="@+id/textDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:textSize="8pt"
+            android:textSize="15sp"
             android:text="회원탈퇴"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:text="정보수정"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:backgroundTint="@color/bg_blue"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"

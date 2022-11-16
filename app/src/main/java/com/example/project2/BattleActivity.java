@@ -111,16 +111,18 @@ public class BattleActivity extends AppCompatActivity {
     private ChatAdapter chatAdapter;
     private RecyclerView recyclerView;
 
-    @Override
+    /*@Override
     protected void onStop() {
-        super.onStop();
-        try {
-            sendWriter.close();
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(run == 1) {
+            super.onStop();
+            try {
+                sendWriter.close();
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,8 +300,8 @@ public class BattleActivity extends AppCompatActivity {
                                     }
                                 }
                                 if (index == 0) {
-                                    Toast toast = Toast.makeText(BattleActivity.this, "상대방을 찾지 못했습니다.", Toast.LENGTH_SHORT);
-                                    toast.show();
+                                    //Toast toast = Toast.makeText(BattleActivity.this, "상대방을 찾지 못했습니다.", Toast.LENGTH_SHORT);
+                                    //toast.show();
                                 }
                             }
                         }

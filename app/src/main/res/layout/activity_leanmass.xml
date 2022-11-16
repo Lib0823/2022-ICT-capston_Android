@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    tools:context=".LeanmassActivity"
     android:background="@color/bg_blue"
-    tools:context=".LeanmassActivity">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:paddingTop="10dp"
         android:paddingRight="20dp"
@@ -61,6 +61,7 @@
             android:max="3500"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:progressTint="#619bfc"
+            android:layout_marginBottom="20dp"
             android:progressBackgroundTint="#E0E0E0"
             android:layout_width="match_parent"
             android:layout_height="10dp"/>
@@ -95,8 +96,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lf1"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d1"/>
                 <ImageButton
                     android:id="@+id/lf2"
                     android:background="@color/bg_white"
@@ -104,8 +105,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lf2"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d2"/>
                 <ImageButton
                     android:id="@+id/lf3"
                     android:background="@color/bg_white"
@@ -113,8 +114,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lf3"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d3"/>
                 <ImageButton
                     android:id="@+id/lf4"
                     android:background="@color/bg_white"
@@ -122,8 +123,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lf4"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d4"/>
                 <ImageButton
                     android:id="@+id/lf5"
                     android:background="@color/bg_white"
@@ -131,8 +132,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lf5"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d5"/>
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -156,8 +157,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ls1"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e1"/>
                 <ImageButton
                     android:id="@+id/ls2"
                     android:background="@color/bg_white"
@@ -165,8 +166,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ls2"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e2"/>
                 <ImageButton
                     android:id="@+id/ls3"
                     android:background="@color/bg_white"
@@ -174,8 +175,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ls3"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e3"/>
                 <ImageButton
                     android:id="@+id/ls4"
                     android:background="@color/bg_white"
@@ -183,8 +184,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ls4"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e4"/>
                 <ImageButton
                     android:id="@+id/ls5"
                     android:background="@color/bg_white"
@@ -192,8 +193,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ls5"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e5"/>
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -217,8 +218,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lb1"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p1"/>
                 <ImageButton
                     android:id="@+id/lb2"
                     android:background="@color/bg_white"
@@ -226,8 +227,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lb2"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p2"/>
                 <ImageButton
                     android:id="@+id/lb3"
                     android:background="@color/bg_white"
@@ -235,8 +236,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lb3"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p3"/>
                 <ImageButton
                     android:id="@+id/lb4"
                     android:background="@color/bg_white"
@@ -244,8 +245,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lb4"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p4"/>
                 <ImageButton
                     android:id="@+id/lb5"
                     android:background="@color/bg_white"
@@ -253,8 +254,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/lb5"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p5"/>
             </LinearLayout>
         </HorizontalScrollView>
 

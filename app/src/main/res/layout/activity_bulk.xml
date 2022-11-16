@@ -12,26 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="벌크업"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
+        android:layout_margin="5dp"
         android:textColor="@color/bg_white"
         android:textSize="10pt"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/radius_bottom_navi"
+        android:layout_marginRight="30dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="5dp"
+        android:background="@drawable/radius_progress"
         android:orientation="vertical">
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="5dp"
             android:text="일일 대사량(kcal)"
             android:textSize="8pt"/>
         <TextView
@@ -39,8 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="기초"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:paddingLeft="5dp"
             android:textSize="7pt"/>
         <ProgressBar
             android:id="@+id/basicBar"
@@ -48,9 +45,7 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:progressTint="#80ef66"
             android:progressBackgroundTint="#E0E0E0"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="10dp"/>
 
@@ -59,18 +54,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="권장"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:paddingLeft="5dp"
             android:textSize="7pt"/>
         <ProgressBar
             android:id="@+id/recomBar"
             android:max="3500"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:progressTint="#619bfc"
-            android:progressBackgroundTint="#E0E0E0"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
+            android:progressBackgroundTint="#E0E0E0"
             android:layout_width="match_parent"
             android:layout_height="10dp"/>
     </LinearLayout>
@@ -88,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="운동강의"
-            android:gravity="center"
+
             android:textSize="10pt"/>
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -104,8 +96,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bf1"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d1"/>
                 <ImageButton
                     android:id="@+id/bf2"
                     android:background="@color/bg_white"
@@ -113,8 +105,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bf2"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d2"/>
                 <ImageButton
                     android:id="@+id/bf3"
                     android:background="@color/bg_white"
@@ -122,8 +114,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bf3"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d3"/>
                 <ImageButton
                     android:id="@+id/bf4"
                     android:background="@color/bg_white"
@@ -131,8 +123,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bf4"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d4"/>
                 <ImageButton
                     android:id="@+id/bf5"
                     android:background="@color/bg_white"
@@ -140,8 +132,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bf5"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/d5"/>
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -150,7 +142,6 @@
             android:layout_height="wrap_content"
             android:text="식단"
             android:layout_marginTop="20dp"
-            android:gravity="center"
             android:textSize="10pt"/>
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -166,8 +157,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bs1"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e1"/>
                 <ImageButton
                     android:id="@+id/bs2"
                     android:background="@color/bg_white"
@@ -175,8 +166,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bs2"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e2"/>
                 <ImageButton
                     android:id="@+id/bs3"
                     android:background="@color/bg_white"
@@ -184,8 +175,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bs3"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e3"/>
                 <ImageButton
                     android:id="@+id/bs4"
                     android:background="@color/bg_white"
@@ -193,8 +184,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bs4"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e4"/>
                 <ImageButton
                     android:id="@+id/bs5"
                     android:background="@color/bg_white"
@@ -202,8 +193,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bs5"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/e5"
+                    tools:ignore="DuplicateIds" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -211,7 +203,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="보충제"
-            android:gravity="center"
             android:layout_marginTop="20dp"
             android:textSize="10pt"/>
         <HorizontalScrollView
@@ -228,8 +219,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bb1"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p1"/>
                 <ImageButton
                     android:id="@+id/bb2"
                     android:background="@color/bg_white"
@@ -237,8 +228,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bb2"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p2"/>
                 <ImageButton
                     android:id="@+id/bb3"
                     android:background="@color/bg_white"
@@ -246,8 +237,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bb3"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p3"/>
                 <ImageButton
                     android:id="@+id/bb4"
                     android:background="@color/bg_white"
@@ -255,8 +246,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bb4"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p4"/>
                 <ImageButton
                     android:id="@+id/bb5"
                     android:background="@color/bg_white"
@@ -264,8 +255,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bb5"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p5"/>
             </LinearLayout>
         </HorizontalScrollView>
 
