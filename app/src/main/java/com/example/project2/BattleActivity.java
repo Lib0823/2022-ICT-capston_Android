@@ -101,8 +101,8 @@ public class BattleActivity extends AppCompatActivity {
     InetAddress serverAddr;
     Socket socket;
     PrintWriter sendWriter;
-    private String ip = "172.30.1.60";
-    private int port = 7002;
+    private String ip = "172.20.10.5";
+    private int port = 7008;
     String UserID;
     EditText message;
     String sendmsg;
@@ -374,7 +374,7 @@ public class BattleActivity extends AppCompatActivity {
                         int sumpoint = 0;
                         // 내점수
 
-                        for (int i = 0; i <= resultDay; i++) {
+                        for (int i = 1; i <= resultDay; i++) {
                             Log.d("여기도 좀 지나가줘3333333 ㅠㅠ", String.valueOf(resultDay));
                             final PointInfo[] pointInfos = {new PointInfo()};
                             final int[] point = {0};
@@ -421,7 +421,7 @@ public class BattleActivity extends AppCompatActivity {
                         }
 
                         // 상대점수
-                        for (int i = 0; i <= resultDay; i++) {
+                        for (int i = 1; i <= resultDay; i++) {
                             final PointInfo[] pointInfos = {new PointInfo()};
                             final int[] point = {0};
                             SimpleDateFormat fm = new SimpleDateFormat("yyyy-mm-dd");
@@ -614,7 +614,7 @@ public class BattleActivity extends AppCompatActivity {
                         }
                     }
                     chatAdapter = new ChatAdapter(chatList);
-                    recyclerView.setAdapter(chatAdapter);  // Adapter 등록
+                    //recyclerView.setAdapter(chatAdapter);  // Adapter 등록 (수정필요)
                     recyclerView.setAdapter(chatAdapter);  // Adapter 등록
                 }
             });

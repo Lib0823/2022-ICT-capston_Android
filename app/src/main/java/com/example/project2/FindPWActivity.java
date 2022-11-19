@@ -73,7 +73,7 @@ public class FindPWActivity extends AppCompatActivity implements View.OnClickLis
                             finish();
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         } else {
-                            Toast.makeText(FindPWActivity.this, "메일 보내기 실패!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(FindPWActivity.this, "메일전송이 실패되었습니다.", Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
                     }

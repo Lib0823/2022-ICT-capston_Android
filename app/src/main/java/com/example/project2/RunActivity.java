@@ -510,7 +510,7 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
                 }
                 break;
         }
-            return super.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
     // 날씨 구하는 메서드
     public String lookUpWeather(double dx, double dy) throws IOException, JSONException {
@@ -643,6 +643,9 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
                 }
             }
             if (category.equals("T3H") || category.equals("T1H")) {
+                if(fcstValue.equals("-99")) {
+                    fcstValue="10";
+                }
                 tmperature = fcstValue + " ℃";
             }
             weatherResult = weather + "," + tmperature;
@@ -699,14 +702,13 @@ public class RunActivity extends AppCompatActivity implements SensorEventListene
                 if (pointInfos[0] == null || pointInfos[0].equals(null))
                     point = 0;
                 else {
-                   point = pointInfos[0].getPoint();
-                   if(point==null){
-                       point = 0;
-                   }
+                    point = pointInfos[0].getPoint();
+                    if(point==null){
+                        point = 0;
+                    }
                     Log.d("이이이이름", String.valueOf(point));
                 }
             }
         });
     }
-
 }
