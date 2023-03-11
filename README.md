@@ -4,4 +4,4 @@
 
 <br>
 <h2>Project 설명</h2> 
-[notion] => <a href="https://www.notion.so/ICT-CapstoneDesign-5c8398bd4c64490ca46a458dfd4340ee">-바로가기-</a>
+[notion] => <a href="https://www.notion.so/ICT-CapstoneDesign-5c8398bd4c64490ca46a458dfd4340ee"> https://www.notion.so/ICT-CapstoneDesign-5c8398bd4c64490ca46a458dfd4340ee </a>
